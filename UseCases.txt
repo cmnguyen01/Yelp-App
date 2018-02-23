@@ -1,0 +1,64 @@
+Use Case 1: Register for Business Account
+1)Select Unclaimed/New Business
+2)Provide proof of ownership
+3)Select Username
+4)Set password
+5)Complete profile
+
+Exceptions:
+Username already take, prompt for another
+Password doesn't meet requirements, prompt to change
+
+Use Case 2: Register for User Account
+1)Select Username
+2)Set password
+3)Complete user profile
+
+Exceptions:
+Username already take, prompt for another
+Password doesn't meet requirements, prompt to change
+
+Use Case 3: Manage Profile
+1)Navigate to profile page
+2)View/edit as desired
+
+Use Case 4: Log In
+1)Enter username
+2)Enter password
+
+Exceptions:
+Bad username/password combination, prompt to retry
+More than 5 attempts from ip address, block IP for 10 minutes.
+
+Use Case 5: Search Local Business
+1)Search by business name, tags(key words), or location
+2)Select business from displayed list
+3)View profile of selected business, including a map, a graph of busy times, reviews, and more.
+
+Exceptions: search returns no results, prompt to widen search, show partial matches.
+
+Use Case 6: Check In
+1)Use GPS to verify at business
+2)Select check-in option
+
+Exception:
+No GPS signal/not at location - disallow checkin with message.
+Already checked in today at this business - disallow.
+
+Use Case 7: Rate and Review
+1)Rate
+2)Write review
+3)Submit review
+
+Use Case 8: Manage Friends
+1)View list of friends
+2)Add or Remove friends
+
+Use Case 9: View Friend Activity
+1)See list of most recent activity for each friend
+2)Select friend for more detailed information on that friends activity
+
+Use Case 10: Manage Business Details
+1)View owned business profile and activity
+2)Optionally update business hours or other information
+

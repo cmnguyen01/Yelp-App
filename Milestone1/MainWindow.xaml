@@ -9,7 +9,7 @@
     <Grid>
         <ComboBox x:Name="statelist" HorizontalAlignment="Left" Margin="154,10,0,0" VerticalAlignment="Top" Width="194" Height="34" FontSize="14" SelectionChanged="statelist_SelectionChanged"/>
         <Label Content="State" HorizontalAlignment="Left" Margin="54,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.143,0.134" Width="81" Height="34" FontSize="14"/>
-        <DataGrid x:Name="businessGrid" HorizontalAlignment="Left" Height="164" Margin="154,110,0,0" VerticalAlignment="Top" Width="476"/>
+        <DataGrid x:Name="businessGrid" HorizontalAlignment="Left" Height="164" Margin="154,110,0,0" VerticalAlignment="Top" Width="476" IsReadOnly="True" />
         <ComboBox x:Name="cityList" HorizontalAlignment="Left" Margin="154,49,0,0" VerticalAlignment="Top" Width="194" Height="34" SelectionChanged="cityList_SelectionChanged"/>
         <Label Content="City" HorizontalAlignment="Left" Margin="54,49,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.143,0.134" Width="81" Height="34" FontSize="14"/>
 
