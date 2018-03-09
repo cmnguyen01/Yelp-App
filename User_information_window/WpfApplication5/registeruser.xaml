@@ -7,19 +7,19 @@
         mc:Ignorable="d"
         Title="registeruser" Height="457" Width="604">
     <Grid>
-        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" Margin="10,25,0,0"/>
-        <ListBox x:Name="listBox" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="120" Margin="10,66,0,0"/>
-        <Button x:Name="button" Content="Register User" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="146,146,0,0" Click="button_Click"/>
-        <TextBox x:Name="textBox1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="74" Margin="370,52,0,0" TextChanged="textBox1_TextChanged" IsEnabled="False"/>
+        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" Margin="10,25,0,0" IsEnabled="False" TextChanged="user_textchanged"/>
+        <ListBox x:Name="user_id_list" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="120" Margin="10,66,0,0" SelectionChanged="user_id_selected"/>
+        <Button x:Name="registerbutton" Content="Register User" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="146,146,0,0" Click="registereduser"/>
+        <TextBox x:Name="textBox1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="74" Margin="370,52,0,0" IsEnabled="False"/>
         <TextBox x:Name="textBox1_Copy" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="74" Margin="370,84,0,0" IsEnabled="False"/>
         <TextBox x:Name="textBox1_Copy1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="74" Margin="370,112,0,0" IsEnabled="False"/>
         <TextBox x:Name="textBox1_Copy2" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="74" Margin="370,140,0,0" IsEnabled="False"/>
         <Label x:Name="label" Content="Set  current user" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0"/>
-        <DataGrid x:Name="dataGrid" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,214,0,0" Height="176" Width="211" SelectionChanged="dataGrid_SelectionChanged_1"/>
-        <DataGrid x:Name="dataGrid1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="263,214,0,0" Height="176" Width="314"/>
+        <DataGrid x:Name="Friendslist" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,214,0,0" Height="202" Width="211" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" Focusable="False" IsReadOnly="True"/>
+        <DataGrid x:Name="tips" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="263,214,0,0" Height="202" Width="323"/>
         <Label x:Name="label1" Content="Name:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="299,53,0,0"/>
         <Label x:Name="label1_Copy" Content="Stars:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="299,84,0,0"/>
-        <Label x:Name="label1_Copy1" Content="Label" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="299,112,0,0"/>
+        <Label x:Name="label1_Copy1" Content="Fans:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="299,112,0,0"/>
         <Label x:Name="label1_Copy2" Content="Yelping:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="299,140,0,0"/>
         <Label x:Name="label2" Content="User Information" Margin="299,10,192,390"/>
         <Label x:Name="label3" Content="Friends" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,183,0,0"/>

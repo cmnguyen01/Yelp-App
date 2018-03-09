@@ -9,9 +9,9 @@
     <Grid>
         <Button x:Name="button" Content="user login" HorizontalAlignment="Left" Margin="72,64,0,0" VerticalAlignment="Top" Width="104" Click="button_Click"/>
         <Button x:Name="button1" Content="business login" HorizontalAlignment="Left" VerticalAlignment="Top" Width="109" Margin="281,64,0,0"/>
-        <Button x:Name="button2" Content="register user" HorizontalAlignment="Left" VerticalAlignment="Top" Width="104" Margin="72,152,0,0"/>
-        <Button x:Name="button3" Content="register business" HorizontalAlignment="Left" VerticalAlignment="Top" Width="109" Margin="281,152,0,0"/>
-        <Button x:Name="button4" Content="guest login" HorizontalAlignment="Left" VerticalAlignment="Top" Width="99" Margin="179,200,0,0" Click="button4_Click"/>
+        <Button x:Name="button2" Content="register user" HorizontalAlignment="Left" VerticalAlignment="Top" Width="104" Margin="72,99,0,0"/>
+        <Button x:Name="button3" Content="register business" HorizontalAlignment="Left" VerticalAlignment="Top" Width="109" Margin="281,99,0,0"/>
+        <Button x:Name="button4" Content="guest login" HorizontalAlignment="Left" VerticalAlignment="Top" Width="99" Margin="179,134,0,0" Click="button4_Click"/>
 
     </Grid>
 </Window>
