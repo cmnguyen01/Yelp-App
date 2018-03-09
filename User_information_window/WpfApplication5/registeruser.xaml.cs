@@ -42,7 +42,7 @@ namespace WpfApplication5
         }
         private string buildcomm()
         {
-            return " Host=localhost; Username=postgres; Password=1994; Database=Project";
+            return "Host=localhost; Username=postgres; Password=1994; Database=Project";
         }
         public void adduser_id()
         {
