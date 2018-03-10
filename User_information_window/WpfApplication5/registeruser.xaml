@@ -5,33 +5,32 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApplication5"
         mc:Ignorable="d"
-        Title="registeruser" Height="457" Width="604">
+        Title="registeruser" Height="694" Width="1150.667">
     <Grid>
-        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" Margin="10,25,0,0" IsEnabled="False" TextChanged="user_textchanged"/>
-        <ListBox x:Name="user_id_list" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="120" Margin="10,66,0,0" SelectionChanged="user_id_selected"/>
-        <Button x:Name="registerbutton" Content="Register User" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="146,146,0,0" Click="registereduser"/>
-        <TextBox x:Name="textBox1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="74" Margin="370,52,0,0" IsEnabled="False"/>
-        <TextBox x:Name="textBox1_Copy" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="74" Margin="370,84,0,0" IsEnabled="False"/>
-        <TextBox x:Name="textBox1_Copy1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="74" Margin="370,112,0,0" IsEnabled="False"/>
-        <TextBox x:Name="textBox1_Copy2" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="74" Margin="370,140,0,0" IsEnabled="False"/>
-        <Label x:Name="label" Content="Set  current user" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0"/>
-        <DataGrid x:Name="Friendslist" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,214,0,0" Height="202" Width="211" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" Focusable="False" IsReadOnly="True"/>
-        <DataGrid x:Name="tips" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="263,214,0,0" Height="202" Width="323"/>
-        <Label x:Name="label1" Content="Name:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="299,53,0,0"/>
-        <Label x:Name="label1_Copy" Content="Stars:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="299,84,0,0"/>
-        <Label x:Name="label1_Copy1" Content="Fans:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="299,112,0,0"/>
-        <Label x:Name="label1_Copy2" Content="Yelping:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="299,140,0,0"/>
-        <Label x:Name="label2" Content="User Information" Margin="299,10,192,390"/>
+        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="10,25,0,0" TextChanged="NameTextChanged"/>
+        <ListBox x:Name="user_id_list" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="210" Margin="10,66,0,0" SelectionChanged="User_id_selected"/>
+        <Button x:Name="registerbutton" Content="Register Selected User" HorizontalAlignment="Left" VerticalAlignment="Top" Width="135" Margin="225,144,0,0" Click="Registereduser" Height="22"/>
+        <TextBox x:Name="nameBox" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="74" Margin="804,60,0,0" IsEnabled="False"/>
+        <TextBox x:Name="starsBox" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="74" Margin="804,88,0,0" IsEnabled="False"/>
+        <TextBox x:Name="fansBox" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="74" Margin="804,116,0,0" IsEnabled="False"/>
+        <TextBox x:Name="yelpingBox" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="74" Margin="804,144,0,0" IsEnabled="False"/>
+        <Label x:Name="label" Content="Search: " HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0"/>
+        <DataGrid x:Name="Friendslist" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,214,0,0" Height="290" Width="569" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" Focusable="False" IsReadOnly="True"/>
+        <DataGrid x:Name="tips" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="688,214,0,0" Height="290" Width="441"/>
+        <Label x:Name="label1" Content="Name:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="733,57,0,0"/>
+        <Label x:Name="label1_Copy" Content="Stars:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="733,88,0,0"/>
+        <Label x:Name="label1_Copy1" Content="Fans:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="733,116,0,0"/>
+        <Label x:Name="label1_Copy2" Content="Yelping:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="733,144,0,0"/>
         <Label x:Name="label3" Content="Friends" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,183,0,0"/>
-        <Label x:Name="label4" Content="Tips from Friends" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="263,183,0,0"/>
-        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="249,-54,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
-        <Label x:Name="label5" Content="Votes" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="458,52,0,0" Height="23" Width="38"/>
-        <Label x:Name="label5_Copy" Content="Funny" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="458,80,0,0" Height="27" Width="51"/>
-        <Label x:Name="label5_Copy1" Content="Cool" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="458,113,0,0" Height="25" Width="51"/>
-        <Label x:Name="label5_Copy2" Content="Useful" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="458,143,0,0" Height="23" Width="51"/>
-        <TextBox x:Name="textBox2" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="46" Margin="509,84,0,0" RenderTransformOrigin="0.533,1.87" IsEnabled="False"/>
-        <TextBox x:Name="textBox2_Copy" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="46" Margin="509,117,0,0" RenderTransformOrigin="0.533,1.87" IsEnabled="False"/>
-        <TextBox x:Name="textBox2_Copy1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="46" Margin="509,147,0,0" RenderTransformOrigin="0.533,1.87" IsEnabled="False"/>
+        <Label x:Name="label4" Content="Tips from Friends" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="688,183,0,0"/>
+        <Label x:Name="label5" Content="Votes" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="892,56,0,0" Height="23" Width="38"/>
+        <Label x:Name="label5_Copy" Content="Funny" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="892,84,0,0" Height="27" Width="51"/>
+        <Label x:Name="label5_Copy1" Content="Cool" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="892,117,0,0" Height="25" Width="51"/>
+        <Label x:Name="label5_Copy2" Content="Useful" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="892,147,0,0" Height="23" Width="51"/>
+        <TextBox x:Name="funnyBox" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="46" Margin="943,88,0,0" RenderTransformOrigin="0.533,1.87" IsEnabled="False"/>
+        <TextBox x:Name="coolBox" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="46" Margin="943,121,0,0" RenderTransformOrigin="0.533,1.87" IsEnabled="False"/>
+        <TextBox x:Name="usefulBox" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="46" Margin="943,151,0,0" RenderTransformOrigin="0.533,1.87" IsEnabled="False"/>
+        <Label Content="User Information" HorizontalAlignment="Left" Margin="733,22,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>
