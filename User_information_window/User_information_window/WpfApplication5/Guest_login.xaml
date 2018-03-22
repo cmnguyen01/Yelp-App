@@ -1,0 +1,19 @@
+﻿<Window x:Class="WpfApplication5.Guest_login"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApplication5"
+        mc:Ignorable="d"
+        Title="Guest_login" Height="640.725" Width="879">
+    <Grid>
+        <ComboBox x:Name="statelist" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="56,44,0,0" SelectionChanged="statesList_SelectionChanged"/>
+        <Label x:Name="label" Content="Label" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,44,0,0"/>
+        <ListBox x:Name="listBox" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100" Margin="56,94,0,0"/>
+        <ListBox x:Name="cityList" HorizontalAlignment="Left" Height="138" VerticalAlignment="Top" Width="120" Margin="56,94,0,0" SelectionChanged="listBox_Copy1_SelectionChanged"/>
+        <DataGrid x:Name="businessGrid" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="276,110,0,0" Height="240" Width="422"/>
+        <ListBox x:Name="Zipcode_List" HorizontalAlignment="Left" Height="74" VerticalAlignment="Top" Width="120" Margin="56,258,0,0" SelectionChanged="Zipcode_List_SelectionChanged"/>
+        <ListBox x:Name="listBox1" HorizontalAlignment="Left" Height="101" VerticalAlignment="Top" Width="120" Margin="56,357,0,0"/>
+
+    </Grid>
+</Window>
