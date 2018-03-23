@@ -137,6 +137,7 @@ namespace WpfApplication5
 
         private void statesList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            Zipcode_List.Items.Clear();
             businessGrid.Items.Clear();
             if (statelist.SelectedIndex > -1)
             {
@@ -171,9 +172,11 @@ namespace WpfApplication5
 
                 }
             }
+            tagsListBox.Items.Clear();
+            RefreshTagsBox();
         }
 
-        private void listBox_Copy1_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void CityListSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (cityList.SelectedIndex > -1)
 
@@ -211,6 +214,8 @@ namespace WpfApplication5
 
                 }
             }
+            tagsListBox.Items.Clear();
+            RefreshTagsBox();
         }
 
         private void Zipcode_List_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -260,11 +265,10 @@ namespace WpfApplication5
                     }
                 }
             }
+            tagsListBox.Items.Clear();
+            RefreshTagsBox();
         }
-        //Ontagslistboxchange
-
-        //tagsListBox_SelectionChanged
-        private void tagsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void RefreshTagsSearch()
         {
             using (var conn = new NpgsqlConnection(buildConnString()))
             {
@@ -300,8 +304,41 @@ namespace WpfApplication5
                         while (reader.Read())
                         {
                             //businessGrid.Items.Add(new Business() { Name = reader.GetString(0), State = reader.GetString(1), City = reader.GetString(2), Zipcode = reader.GetString(3) });
-                            businessGrid.Items.Add(new Business() { Name = reader.GetString(0), State = reader.GetString(1), City = reader.GetString(2), Zipcode = reader.GetString(3), Address=reader.GetString(4), Reviewcount = reader.GetInt32(5), Totalcheckins = reader.GetInt32(6), business_id = reader.GetString(7) });
+                            businessGrid.Items.Add(new Business() { Name = reader.GetString(0), State = reader.GetString(1), City = reader.GetString(2), Zipcode = reader.GetString(3), Address = reader.GetString(4), Reviewcount = reader.GetInt32(5), Totalcheckins = reader.GetInt32(6), business_id = reader.GetString(7) });
                         }
+                    }
+                }
+            }
+        }
+        private void RefreshTagsBox()
+        {
+            using (var conn = new NpgsqlConnection(buildConnString()))
+            {
+                conn.Open();
+                using (var cmd = new NpgsqlCommand())
+                {
+                    cmd.Connection = conn;
+
+                    if (Zipcode_List.SelectedIndex > -1)
+                    {
+                        cmd.CommandText = "SELECT name, state, city, zipcode, address, reviewcount, numcheckins, business_id FROM businesstable WHERE state= '" + statelist.SelectedItem.ToString() + "' AND city= '" + cityList.SelectedItem.ToString() + "' AND zipcode= '" + Zipcode_List.SelectedItem.ToString() + "'";
+                    }
+                    else if (cityList.SelectedIndex > -1)
+                    {
+                        cmd.CommandText = "SELECT name, state, city, zipcode, address, reviewcount, numcheckins, business_id FROM businesstable WHERE state= '" + statelist.SelectedItem.ToString() + "' AND city= '" + cityList.SelectedItem.ToString() + "'";
+                    }
+                    else
+                    {
+                        cmd.CommandText = "SELECT name, state, city, zipcode, address, reviewcount, numcheckins, business_id FROM businesstable WHERE state= '" + statelist.SelectedItem.ToString() + "'";
+                    }
+                    if (tagsListBox.SelectedItems.Count != 0)
+                    {
+                        cmd.CommandText = cmd.CommandText + " AND ARRAY[";
+                        foreach (string x in tagsListBox.SelectedItems)
+                        {
+                            cmd.CommandText = cmd.CommandText + "'" + x + "', ";
+                        }
+                        cmd.CommandText = cmd.CommandText.Substring(0, cmd.CommandText.Length - 2) + "]::varchar[] <@ categories";
                     }
                     cmd.CommandText = "SELECT DISTINCT unnest(categories)" + cmd.CommandText.Substring(33);
                     using (var reader = cmd.ExecuteReader())
@@ -321,12 +358,17 @@ namespace WpfApplication5
                         }
                         while (reader.Read())
                         {
-                            if (!tagsListBox.SelectedItems.Contains(reader.GetString(0)))
+                            if (!tagsListBox.Items.Contains(reader.GetString(0)))
                                 tagsListBox.Items.Add(reader.GetString(0));
                         }
                     }
                 }
             }
+        }
+        private void TagsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            RefreshTagsBox();
+            RefreshTagsSearch();
         }
     }
 }
