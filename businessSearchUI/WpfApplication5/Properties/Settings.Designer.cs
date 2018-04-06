@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Milestone2MAP.Properties
+namespace WpfApplication5.Properties
 {
 
 
