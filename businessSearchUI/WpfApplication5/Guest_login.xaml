@@ -8,16 +8,17 @@
         Title="Guest_login" Height="640.725" Width="879">
     <Grid>
         <ComboBox x:Name="statelist" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="56,44,0,0" SelectionChanged="statesList_SelectionChanged"/>
-        <Label x:Name="States" Content="States" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,44,0,0"/>
+        <Label x:Name="label" Content="Label" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,44,0,0"/>
         <ListBox x:Name="listBox" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100" Margin="56,94,0,0"/>
         <ListBox x:Name="cityList" HorizontalAlignment="Left" Height="138" VerticalAlignment="Top" Width="120" Margin="56,94,0,0" SelectionChanged="CityListSelectionChanged"/>
-        <DataGrid x:Name="businessGrid" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="276,110,0,0" Height="348" Width="514"/>
+        <DataGrid x:Name="businessGrid" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="276,110,0,0" Height="348" Width="514" SelectionChanged="AddTips" SelectionMode="Single"/>
         <ListBox x:Name="Zipcode_List" HorizontalAlignment="Left" Height="74" VerticalAlignment="Top" Width="120" Margin="56,258,0,0" SelectionChanged="Zipcode_List_SelectionChanged"/>
         <ListBox x:Name="tagsListBox" HorizontalAlignment="Left" Height="101" VerticalAlignment="Top" Width="120" Margin="56,357,0,0" SelectionChanged="TagsListBox_SelectionChanged" SelectionMode="Multiple"/>
-        <Label x:Name="label1" Content="City" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,94,0,0"/>
-        <Label x:Name="label1_Copy" Content="Zipcode" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="3,258,0,0"/>
-        <Label x:Name="label1_Copy1" Content="Tags" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,357,0,0"/>
-        <Label x:Name="label2" Content="Business" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="276,76,0,0"/>
+        <Label x:Name="label1" Content="Label" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,94,0,0"/>
+        <Label x:Name="label1_Copy" Content="Label" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,258,0,0"/>
+        <Label x:Name="label1_Copy1" Content="Label" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,357,0,0"/>
+        <Label x:Name="label2" Content="Label" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="276,76,0,0"/>
+        <DataGrid x:Name="BusinessTips" HorizontalAlignment="Left" Height="124" Margin="10,476,0,0" VerticalAlignment="Top" Width="851"/>
 
     </Grid>
 </Window>

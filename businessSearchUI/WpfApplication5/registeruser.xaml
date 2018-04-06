@@ -16,7 +16,7 @@
         <TextBox x:Name="yelpingBox" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="74" Margin="804,144,0,0" IsEnabled="False"/>
         <Label x:Name="label" Content="Search: " HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0"/>
         <DataGrid x:Name="Friendslist" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,214,0,0" Height="290" Width="569" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" Focusable="False" IsReadOnly="True"/>
-        <DataGrid x:Name="tips" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="688,214,0,0" Height="290" Width="441"/>
+        <DataGrid x:Name="tips" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="688,214,0,0" Height="290" Width="441" IsEnabled="False"/>
         <Label x:Name="label1" Content="Name:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="733,57,0,0"/>
         <Label x:Name="label1_Copy" Content="Stars:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="733,88,0,0"/>
         <Label x:Name="label1_Copy1" Content="Fans:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="733,116,0,0"/>

@@ -19,6 +19,13 @@ namespace WpfApplication5
     /// Interaction logic for registeruser.xaml
     /// </summary>
     /// 
+    public class Tip
+    {
+        public string Reviewer_id { get; set; }
+        public string Tip_Text { get; set; }
+        public DateTime Date { get; set; }
+        public string Likes { get; set; }
+    }
     public partial class registeruser : Window
     {
         public class User
@@ -127,17 +134,58 @@ namespace WpfApplication5
             col4.Binding = new Binding("Yelping_since");
             Friendslist.Columns.Add(col4);
 
-        }
+            DataGridTextColumn col6 = new DataGridTextColumn();
+            col6.Header = "Reviewer";
+            col6.Binding = new Binding("Reviewer_id");
 
+            DataGridTextColumn col7 = new DataGridTextColumn();
+            col7.Header = "Tip";
+            col7.Binding = new Binding("Tip_Text");
+            col7.Width = 355;
+
+            DataGridTextColumn col8 = new DataGridTextColumn();
+            col8.Header = "#Likes";
+            col8.Binding = new Binding("Likes");
+
+            DataGridTextColumn col9 = new DataGridTextColumn();
+            col9.Header = "Date";
+            col9.Binding = new Binding("Date");
+
+            tips.Columns.Add(col6);
+            tips.Columns.Add(col7);
+            tips.Columns.Add(col8);
+            tips.Columns.Add(col9);
+
+        }
+        private string buildConnString()
+        {
+            return "Host=localhost; Username=postgres; Password=6765; Database = Project";
+        }
         private void User_id_selected(object sender, SelectionChangedEventArgs e)
         {
             if (user_id_list.SelectedIndex != -1)
             {
+                tips.Items.Clear();
                 User selectedUser = new User((user_id_list.SelectedItem).ToString());
                 Friendslist.Items.Clear();
                 foreach (String x in selectedUser.Friendslist)
                 {
                     Friendslist.Items.Add(new User(x));
+                    using (var conn = new NpgsqlConnection(buildConnString()))
+                    {
+                        conn.Open();
+                        using (var cmd = new NpgsqlCommand())
+                        {                         
+                            cmd.Connection = conn;
+                            cmd.CommandText = "SELECT user_name, tip_text, date, likes FROM tips NATURAL JOIN user_info WHERE user_id= '" + x + "';";
+                            using (var reader = cmd.ExecuteReader())
+                            {
+                               reader.Read();                                
+                               tips.Items.Add(new Tip() { Reviewer_id = reader.GetString(0), Tip_Text = reader.GetString(1), Date = reader.GetDateTime(2), Likes = reader.GetString(3) });                                
+                            }
+                        }
+                        conn.Close();
+                    }
                 }
                 nameBox.Text = selectedUser.Username;
                 starsBox.Text = selectedUser.Avg_stars.ToString();

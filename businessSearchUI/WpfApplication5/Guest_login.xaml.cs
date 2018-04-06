@@ -31,6 +31,13 @@ namespace WpfApplication5
             public int Totalcheckins { get; set; }
             public string business_id { get; set; }
         }
+        public class Tip
+        {
+            public string Reviewer_id { get; set; }
+            public string Tip_Text { get; set; }
+            public DateTime Date { get; set; }
+            public string Likes { get; set; }
+        }
         public Guest_login()
         {
             InitializeComponent();
@@ -105,6 +112,7 @@ namespace WpfApplication5
                 conn.Close();
             }
         }
+
         public void addColumns2Grid()
         {
             DataGridTextColumn col1 = new DataGridTextColumn();
@@ -133,6 +141,29 @@ namespace WpfApplication5
             businessGrid.Columns.Add(col3);
             businessGrid.Columns.Add(col4);
             businessGrid.Columns.Add(col5);
+
+            DataGridTextColumn col6 = new DataGridTextColumn();
+            col6.Header = "Reviewer";
+            col6.Binding = new Binding("Reviewer_id");
+
+
+            DataGridTextColumn col7 = new DataGridTextColumn();
+            col7.Header = "Tip";
+            col7.Binding = new Binding("Tip_Text");
+            col7.Width = 355;
+
+            DataGridTextColumn col8 = new DataGridTextColumn();
+            col8.Header = "#Likes";
+            col8.Binding = new Binding("Likes");
+
+            DataGridTextColumn col9 = new DataGridTextColumn();
+            col9.Header = "Date";
+            col9.Binding = new Binding("Date");
+
+            BusinessTips.Columns.Add(col6);
+            BusinessTips.Columns.Add(col7);
+            BusinessTips.Columns.Add(col8);
+            BusinessTips.Columns.Add(col9);
         }
 
         private void statesList_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -164,12 +195,8 @@ namespace WpfApplication5
                                 cityList.Items.Add(reader.GetString(0));
                             }
                         }
-
-
                     }
-
                     conn.Close();
-
                 }
             }
             tagsListBox.Items.Clear();
@@ -234,15 +261,15 @@ namespace WpfApplication5
 
                         if (cityList.SelectedIndex > -1)
                         {
-                            cmd.CommandText = "SELECT name, state, city, zipcode, address, reviewcount, numcheckins, business_id FROM businesstable WHERE state= '" + statelist.SelectedItem.ToString() + "' AND city= '" + cityList.SelectedItem.ToString() + "' AND zipcode= '" + Zipcode_List.SelectedItem.ToString() + "';";
+                            cmd.CommandText = "SELECT name, state, city, zipcode, address, reviewcount, numcheckins, business_id FROM businesstable WHERE state= '" + statelist.SelectedItem.ToString() + "' AND city= '" + cityList.SelectedItem.ToString() + "';";
                         }
                         else if(statelist.SelectedIndex> -1)
                         {
-                            cmd.CommandText = "SELECT name, state, city, zipcode, address, reviewcount, numcheckins, business_id FROM businesstable WHERE state= '" + statelist.SelectedItem.ToString() + "' AND zipcode= '" + Zipcode_List.SelectedItem.ToString() + "';";
+                            cmd.CommandText = "SELECT name, state, city, zipcode, address, reviewcount, numcheckins, business_id FROM businesstable WHERE state= '" + statelist.SelectedItem.ToString() + "';";
                         }
                         else
                         {
-                            cmd.CommandText = "SELECT name, state, city, zipcode, address, reviewcount, numcheckins, business_id FROM businesstable WHERE zipcode= '" + Zipcode_List.SelectedItem.ToString() + "';";
+                            cmd.CommandText = "SELECT name, state, city, zipcode, address, reviewcount, numcheckins, business_id FROM businesstable WHERE state= '" + statelist.SelectedItem.ToString() + "' AND city= '" + cityList.SelectedItem.ToString() + "' AND zipcode= '" + Zipcode_List.SelectedItem.ToString() + "';";
                         }
                         using (var reader = cmd.ExecuteReader())
                         {
@@ -369,6 +396,32 @@ namespace WpfApplication5
         {
             RefreshTagsBox();
             RefreshTagsSearch();
+        }
+
+        private void AddTips(object sender, SelectionChangedEventArgs e)
+        {
+            BusinessTips.Items.Clear();
+            if (businessGrid.SelectedIndex > 0)
+            {
+                using (var conn = new NpgsqlConnection(buildConnString()))
+                {
+                    conn.Open();
+                    using (var cmd = new NpgsqlCommand())
+                    {
+                        Business current = (Business)businessGrid.SelectedItem;
+                        cmd.Connection = conn;
+                        cmd.CommandText = "SELECT user_name, tip_text, date, likes FROM tips NATURAL JOIN user_info WHERE business_id= '" + current.business_id + "';";
+                        using (var reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                BusinessTips.Items.Add(new Tip() { Reviewer_id = reader.GetString(0), Tip_Text = reader.GetString(1), Date = reader.GetDateTime(2), Likes = reader.GetString(3) });
+                            }
+                        }
+                    }
+                    conn.Close();
+                }
+            }
         }
     }
 }
