@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApplication5"
         mc:Ignorable="d"
-        Title="registeruser" Height="694" Width="1150.667">
+        Title="Register User" Height="694" Width="1150.667">
     <Grid>
         <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="10,25,0,0" TextChanged="NameTextChanged"/>
         <ListBox x:Name="user_id_list" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="210" Margin="10,66,0,0" SelectionChanged="User_id_selected"/>

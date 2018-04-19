@@ -34,7 +34,7 @@ namespace WpfApplication5
 
         private void button4_Click(object sender, RoutedEventArgs e)// this open business search window
         {
-            Guest_login press = new Guest_login();
+            LocalSearch press = new LocalSearch();
             press.Show();
             this.Close();
         }

@@ -18,7 +18,7 @@ namespace WpfApplication5
     /// <summary>
     /// Interaction logic for Guest_login.xaml
     /// </summary>
-    public partial class Guest_login : Window
+    public partial class LocalSearch : Window
     {
         public class Business
         {
@@ -30,6 +30,7 @@ namespace WpfApplication5
             public int Reviewcount { get; set; }
             public int Totalcheckins { get; set; }
             public string business_id { get; set; }
+            public Dictionary<string, int> CheckInDetails { get; set; }
         }
         public class Tip
         {
@@ -38,7 +39,7 @@ namespace WpfApplication5
             public DateTime Date { get; set; }
             public string Likes { get; set; }
         }
-        public Guest_login()
+        public LocalSearch()
         {
             InitializeComponent();
             addstates();
@@ -401,7 +402,7 @@ namespace WpfApplication5
         private void AddTips(object sender, SelectionChangedEventArgs e)
         {
             BusinessTips.Items.Clear();
-            if (businessGrid.SelectedIndex > 0)
+            if (businessGrid.SelectedIndex >= 0)
             {
                 using (var conn = new NpgsqlConnection(buildConnString()))
                 {
@@ -421,6 +422,15 @@ namespace WpfApplication5
                     }
                     conn.Close();
                 }
+            }
+        }
+
+        private void busDetailsButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (businessGrid.SelectedIndex >= 0)
+            {
+                BusinessDetails detailsWindow = new BusinessDetails((Business)businessGrid.SelectedItem);
+                detailsWindow.Show();
             }
         }
     }
