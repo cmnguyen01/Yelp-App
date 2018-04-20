@@ -30,6 +30,8 @@ namespace WpfApplication5
             public int Reviewcount { get; set; }
             public int Totalcheckins { get; set; }
             public string business_id { get; set; }
+            public double Latitude { get; set; }
+            public double Longitude { get; set; }
             public Dictionary<string, int> CheckInDetails { get; set; }
         }
         public class Tip
@@ -179,12 +181,12 @@ namespace WpfApplication5
                     using (var cmd = new NpgsqlCommand())
                     {
                         cmd.Connection = conn;
-                        cmd.CommandText = "SELECT name, state, city, zipcode, address, reviewcount, numcheckins, business_id FROM businesstable WHERE state= '" + statelist.SelectedItem.ToString() + "';";
+                        cmd.CommandText = "SELECT name, state, city, zipcode, address, reviewcount, numcheckins, business_id, latitude, longitude FROM businesstable WHERE state= '" + statelist.SelectedItem.ToString() + "';";
                         using (var reader = cmd.ExecuteReader())
                         {
                             while (reader.Read())
                             {
-                                businessGrid.Items.Add(new Business() { Name = reader.GetString(0), State = reader.GetString(1), City = reader.GetString(2), Zipcode = reader.GetString(3), Address = reader.GetString(4), Reviewcount=reader.GetInt32(5), Totalcheckins=reader.GetInt32(6),business_id=reader.GetString(7)  });
+                                businessGrid.Items.Add(new Business() { Name = reader.GetString(0), State = reader.GetString(1), City = reader.GetString(2), Zipcode = reader.GetString(3), Address = reader.GetString(4), Reviewcount=reader.GetInt32(5), Totalcheckins=reader.GetInt32(6),business_id=reader.GetString(7), Latitude = reader.GetDouble(8), Longitude = reader.GetDouble(9) });
                             }
                         }
                         cmd.CommandText = "SELECT distinct city FROM businesstable WHERE state = '" + statelist.SelectedItem.ToString() + "'; ";

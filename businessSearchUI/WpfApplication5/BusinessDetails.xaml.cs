@@ -11,7 +11,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Microsoft.Maps.MapControl.WPF;
 using Npgsql;
+using WpfApplication5;
 
 
 namespace WpfApplication5
@@ -25,6 +27,67 @@ namespace WpfApplication5
         {
             InitializeComponent();
             showChart(business);
+            businessNameLabel.Content = business.Name;
+            addressLabel.Content = business.Address;
+            InitMap(business);
+            InitGrid();
+            AddTips(business);
+        }
+        public void InitMap(LocalSearch.Business business)
+        {
+            Pushpin pin = new Pushpin();
+            pin.Location = new Microsoft.Maps.MapControl.WPF.Location(business.Latitude, business.Longitude);
+            // Adds the pushpin to the map.
+            businessMap.Children.Add(pin);
+            businessMap.Center = pin.Location;
+            businessMap.ZoomLevel = 16;
+        }
+        public void InitGrid()
+        {
+            DataGridTextColumn col1 = new DataGridTextColumn();
+            col1.Header = "Reviewer";
+            col1.Binding = new Binding("Reviewer_id");
+            col1.Width = 100;
+
+
+            DataGridTextColumn col2 = new DataGridTextColumn();
+            col2.Header = "Tip";
+            col2.Binding = new Binding("Tip_Text");
+            col2.Width = 385;
+
+            DataGridTextColumn col3 = new DataGridTextColumn();
+            col3.Header = "#Likes";
+            col3.Binding = new Binding("Likes");
+
+            DataGridTextColumn col4 = new DataGridTextColumn();
+            col4.Header = "Date";
+            col4.Binding = new Binding("Date");
+
+            tipsGrid.Columns.Add(col1);
+            tipsGrid.Columns.Add(col2);
+            tipsGrid.Columns.Add(col3);
+            tipsGrid.Columns.Add(col4);
+        }
+        private void AddTips(LocalSearch.Business business)
+        {
+            tipsGrid.Items.Clear();
+            using (var conn = new NpgsqlConnection(buildConnString()))
+            {
+                conn.Open();
+                using (var cmd = new NpgsqlCommand())
+                {                       
+                    cmd.Connection = conn;
+                    cmd.CommandText = "SELECT user_name, tip_text, date, likes FROM tips NATURAL JOIN user_info WHERE business_id= '" + business.business_id + "';";
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            tipsGrid.Items.Add(new Tip() { Reviewer_id = reader.GetString(0), Tip_Text = reader.GetString(1), Date = reader.GetDateTime(2), Likes = reader.GetString(3) });
+                        }
+                    }
+                }
+                conn.Close();
+            }
         }
         private string buildConnString()
         {
@@ -32,7 +95,6 @@ namespace WpfApplication5
         }
         private void showChart(LocalSearch.Business business)
         {
-            List<KeyValuePair<string, int>> MyValue = new List<KeyValuePair<string, int>>();
             using (var conn = new NpgsqlConnection(buildConnString()))
             {
                 conn.Open();
@@ -59,7 +121,7 @@ namespace WpfApplication5
 
             }
 
-            checkInsChart.DataContext = MyValue;
+            checkInsChart.DataContext = business.CheckInDetails;
 
         }
     }
