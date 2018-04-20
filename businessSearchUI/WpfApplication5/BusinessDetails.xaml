@@ -16,7 +16,7 @@
         <m:Map Name="businessMap" CredentialsProvider = "Ao7lKFvWXtO6Kj3BsSK0F_qCpHl1d4t9GUXgeLOAvCPwaQsYfBOBzcknkXzgSdrk" HorizontalAlignment="Right" Height="316" Margin="0,10,10,0" VerticalAlignment="Top" Width="446" />
         <chartingToolkit:Chart x:Name="checkInsChart" HorizontalAlignment="Left" Margin="24,344,0,0" VerticalAlignment="Top" Width="1088" Height="216" Title="Check-Ins">
             <chartingToolkit:ColumnSeries DependentValuePath="Value"  IndependentValuePath="Key" ItemsSource="{Binding}" 
-            IsSelectionEnabled="True"></chartingToolkit:ColumnSeries>
+            IsSelectionEnabled="False"></chartingToolkit:ColumnSeries>
         </chartingToolkit:Chart>
 
     </Grid>

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.DataVisualization;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -13,8 +14,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Microsoft.Maps.MapControl.WPF;
 using Npgsql;
-using WpfApplication5;
-
 
 namespace WpfApplication5
 {
@@ -23,6 +22,7 @@ namespace WpfApplication5
     /// </summary>
     public partial class BusinessDetails : Window
     {
+        //should probably move Business class outside of LocalSearch window for easier access.
         public BusinessDetails(LocalSearch.Business business)
         {
             InitializeComponent();
@@ -48,7 +48,6 @@ namespace WpfApplication5
             col1.Header = "Reviewer";
             col1.Binding = new Binding("Reviewer_id");
             col1.Width = 100;
-
 
             DataGridTextColumn col2 = new DataGridTextColumn();
             col2.Header = "Tip";
@@ -101,6 +100,7 @@ namespace WpfApplication5
                 using (var cmd = new NpgsqlCommand())
                 {
                     cmd.Connection = conn;
+                    //Sums checkins for each day.
                     cmd.CommandText = "SELECT (SELECT SUM(s) FROM UNNEST(sunday) s) as Sunday, (SELECT SUM(s) FROM UNNEST(monday) s) as Monday, (SELECT SUM(s) FROM UNNEST(tuesday) s) as Tuesday, (SELECT SUM(s) FROM UNNEST(wednesday) s) as Wednesday, (SELECT SUM(s) FROM UNNEST(thursday) s) as Thursday, (SELECT SUM(s) FROM UNNEST(friday) s) as Friday, (SELECT SUM(s) FROM UNNEST(saturday) s) as Saturday FROM check_ins  where business_id = '" + business.business_id.ToString() + "'";
                     using (var reader = cmd.ExecuteReader())
                     {
@@ -118,11 +118,13 @@ namespace WpfApplication5
                     }
                 }
                 conn.Close();
-
             }
-
             checkInsChart.DataContext = business.CheckInDetails;
-
+            Style HideLegendStyle = new Style(typeof(Legend));
+            HideLegendStyle.Setters.Add(new Setter(WidthProperty, 0.0));
+            HideLegendStyle.Setters.Add(new Setter(HeightProperty, 0.0));
+            HideLegendStyle.Setters.Add(new Setter(VisibilityProperty, Visibility.Collapsed));
+            checkInsChart.LegendStyle = HideLegendStyle;
         }
     }
 }
