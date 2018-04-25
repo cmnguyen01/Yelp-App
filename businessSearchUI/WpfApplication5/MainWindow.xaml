@@ -8,8 +8,8 @@
         Title="MainWindow" Height="277" Width="447">
     <Grid>
         <Button x:Name="RegisterUserButton" Content="Register User" HorizontalAlignment="Left" Margin="72,64,0,0" VerticalAlignment="Top" Width="104" Click="button_Click"/>
-        <Button x:Name="button1" Content="Business login" HorizontalAlignment="Left" VerticalAlignment="Top" Width="109" Margin="278,99,0,0"/>
-        <Button x:Name="LoginButton" Content="Log In" HorizontalAlignment="Left" VerticalAlignment="Top" Width="104" Margin="72,99,0,0"/>
+        <Button x:Name="button1" Content="Business login" HorizontalAlignment="Left" VerticalAlignment="Top" Width="109" Margin="278,99,0,0" Click="button1_Click"/>
+        <Button x:Name="LoginButton" Content="Log In" HorizontalAlignment="Left" VerticalAlignment="Top" Width="104" Margin="72,99,0,0" Click="LoginButton_Click"/>
         <Button x:Name="button3" Content="Register business" HorizontalAlignment="Left" VerticalAlignment="Top" Width="109" Margin="278,64,0,0" Click="button3_Click"/>
         <Button x:Name="button4" Content="Guest login" HorizontalAlignment="Left" VerticalAlignment="Top" Width="99" Margin="179,134,0,0" Click="button4_Click"/>
 

@@ -45,5 +45,19 @@ namespace WpfApplication5
             press.Show();
             this.Close();
         }
+
+        private void LoginButton_Click(object sender, RoutedEventArgs e)
+        {
+            UserLogin x = new UserLogin();
+            x.Show();
+            //this.Hide();
+        }
+
+        private void button1_Click(object sender, RoutedEventArgs e)
+        {
+            BusinessLogin x = new BusinessLogin();
+            x.Show();
+            //this.Hide();
+        }
     }
 }

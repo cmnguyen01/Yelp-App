@@ -78,6 +78,13 @@
     <Compile Include="BusinessDetails.xaml.cs">
       <DependentUpon>BusinessDetails.xaml</DependentUpon>
     </Compile>
+    <Compile Include="BusinessLogin.xaml.cs">
+      <DependentUpon>BusinessLogin.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CurrentUser.cs" />
+    <Compile Include="LocalMapWindow.xaml.cs">
+      <DependentUpon>LocalMapWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="LocalSearch.xaml.cs">
       <DependentUpon>LocalSearch.xaml</DependentUpon>
     </Compile>
@@ -87,7 +94,18 @@
     <Compile Include="registeruser.xaml.cs">
       <DependentUpon>registeruser.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserLogin.xaml.cs">
+      <DependentUpon>UserLogin.xaml</DependentUpon>
+    </Compile>
     <Page Include="BusinessDetails.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="BusinessLogin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LocalMapWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -112,6 +130,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="registeruser.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserLogin.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

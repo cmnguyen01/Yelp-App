@@ -20,6 +20,7 @@
         <Label x:Name="label2" Content="Label" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="276,76,0,0"/>
         <DataGrid x:Name="BusinessTips" HorizontalAlignment="Left" Height="124" Margin="10,476,0,0" VerticalAlignment="Top" Width="851"/>
         <Button x:Name="busDetailsButton" Content="View Details" HorizontalAlignment="Left" Margin="790,438,0,0" VerticalAlignment="Top" Width="75" Click="busDetailsButton_Click"/>
+        <Button x:Name="mapButton" Content="View on map" HorizontalAlignment="Left" Margin="790,413,0,0" VerticalAlignment="Top" Width="74" Click="MapButton_Click"/>
 
     </Grid>
 </Window>

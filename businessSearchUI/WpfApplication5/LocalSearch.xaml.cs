@@ -25,7 +25,25 @@ namespace WpfApplication5
             public string Name { get; set; }
             public string State { get; set; }
             public string City { get; set; }
-            public string Zipcode { get; set; }
+            private string zipcode;
+            public string Zipcode
+            {
+                get
+                {
+                    if (Int32.TryParse(zipcode, out int x))
+                    {
+                        return zipcode;
+                    }
+                    else
+                    {
+                        return "00000";
+                    }
+                }
+                set
+                {
+                    zipcode = value;
+                }
+            }
             public string Address { get; set; }
             public int Reviewcount { get; set; }
             public int Totalcheckins { get; set; }
@@ -69,7 +87,6 @@ namespace WpfApplication5
                     }
                 }
                 conn.Close();
-
             }
         }
         public void addcities()
@@ -181,12 +198,25 @@ namespace WpfApplication5
                     using (var cmd = new NpgsqlCommand())
                     {
                         cmd.Connection = conn;
-                        cmd.CommandText = "SELECT name, state, city, zipcode, address, reviewcount, numcheckins, business_id, latitude, longitude FROM businesstable WHERE state= '" + statelist.SelectedItem.ToString() + "';";
+                        cmd.CommandText = $"SELECT name, state, city, zipcode, address, reviewcount, numcheckins, business_id, " +
+                            $"latitude, longitude FROM businesstable WHERE state= '{statelist.SelectedItem.ToString()}';";
                         using (var reader = cmd.ExecuteReader())
                         {
                             while (reader.Read())
                             {
-                                businessGrid.Items.Add(new Business() { Name = reader.GetString(0), State = reader.GetString(1), City = reader.GetString(2), Zipcode = reader.GetString(3), Address = reader.GetString(4), Reviewcount=reader.GetInt32(5), Totalcheckins=reader.GetInt32(6),business_id=reader.GetString(7), Latitude = reader.GetDouble(8), Longitude = reader.GetDouble(9) });
+                                businessGrid.Items.Add(new Business()
+                                {
+                                    Name = reader.GetString(0),
+                                    State = reader.GetString(1),
+                                    City = reader.GetString(2),
+                                    Zipcode = reader.GetString(3),
+                                    Address = reader.GetString(4),
+                                    Reviewcount = reader.GetInt32(5),
+                                    Totalcheckins = reader.GetInt32(6),
+                                    business_id = reader.GetString(7),
+                                    Latitude = reader.GetDouble(8),
+                                    Longitude = reader.GetDouble(9)
+                                });
                             }
                         }
                         cmd.CommandText = "SELECT distinct city FROM businesstable WHERE state = '" + statelist.SelectedItem.ToString() + "'; ";
@@ -209,7 +239,6 @@ namespace WpfApplication5
         private void CityListSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (cityList.SelectedIndex > -1)
-
             {
                 Zipcode_List.Items.Clear();
                 businessGrid.Items.Clear();
@@ -219,15 +248,27 @@ namespace WpfApplication5
                     using (var cmd = new NpgsqlCommand())
                     {
                         cmd.Connection = conn;
-                        cmd.CommandText = "SELECT name, state, city, zipcode, address, reviewcount, numcheckins, business_id FROM businesstable WHERE state= '" + statelist.SelectedItem.ToString() + "' AND city= '" + cityList.SelectedItem.ToString() + "';";
+                        cmd.CommandText = $"SELECT name, state, city, zipcode, address, reviewcount, numcheckins, business_id, " +
+                            $"latitude, longitude FROM businesstable WHERE state= '" + statelist.SelectedItem.ToString() + "' AND city= '" + cityList.SelectedItem.ToString() + "';";
                         using (var reader = cmd.ExecuteReader())
                         {
                             while (reader.Read())
                             {
-                                businessGrid.Items.Add(new Business() { Name = reader.GetString(0), State = reader.GetString(1), City = reader.GetString(2), Zipcode = reader.GetString(3), Address = reader.GetString(4), Reviewcount = reader.GetInt32(5), Totalcheckins = reader.GetInt32(6), business_id = reader.GetString(7) });
+                                businessGrid.Items.Add(new Business()
+                                {
+                                    Name = reader.GetString(0),
+                                    State = reader.GetString(1),
+                                    City = reader.GetString(2),
+                                    Zipcode = reader.GetString(3),
+                                    Address = reader.GetString(4),
+                                    Reviewcount = reader.GetInt32(5),
+                                    Totalcheckins = reader.GetInt32(6),
+                                    business_id = reader.GetString(7),
+                                    Latitude = reader.GetDouble(8),
+                                    Longitude = reader.GetDouble(9)
+                                });
                             }
                         }
-
                         cmd.CommandText = "SELECT distinct zipcode FROM businesstable WHERE state = '" + statelist.SelectedItem.ToString() + "' AND city= '" + cityList.SelectedItem.ToString() + "';";
                         Zipcode_List.Items.Clear();
                         using (var reader = cmd.ExecuteReader())
@@ -237,11 +278,8 @@ namespace WpfApplication5
                                 Zipcode_List.Items.Add(reader.GetString(0));
                             }
                         }
-
-
                     }
                     conn.Close();
-
                 }
             }
             tagsListBox.Items.Clear();
@@ -250,9 +288,7 @@ namespace WpfApplication5
 
         private void Zipcode_List_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
             if (Zipcode_List.SelectedIndex > -1)
-
             {
                 businessGrid.Items.Clear();
                 using (var conn = new NpgsqlConnection(buildConnString()))
@@ -261,24 +297,25 @@ namespace WpfApplication5
                     using (var cmd = new NpgsqlCommand())
                     {
                         cmd.Connection = conn;
-
-                        if (cityList.SelectedIndex > -1)
-                        {
-                            cmd.CommandText = "SELECT name, state, city, zipcode, address, reviewcount, numcheckins, business_id FROM businesstable WHERE state= '" + statelist.SelectedItem.ToString() + "' AND city= '" + cityList.SelectedItem.ToString() + "';";
-                        }
-                        else if(statelist.SelectedIndex> -1)
-                        {
-                            cmd.CommandText = "SELECT name, state, city, zipcode, address, reviewcount, numcheckins, business_id FROM businesstable WHERE state= '" + statelist.SelectedItem.ToString() + "';";
-                        }
-                        else
-                        {
-                            cmd.CommandText = "SELECT name, state, city, zipcode, address, reviewcount, numcheckins, business_id FROM businesstable WHERE state= '" + statelist.SelectedItem.ToString() + "' AND city= '" + cityList.SelectedItem.ToString() + "' AND zipcode= '" + Zipcode_List.SelectedItem.ToString() + "';";
-                        }
+                        cmd.CommandText = $"SELECT name, state, city, zipcode, address, reviewcount, numcheckins, business_id, " +
+                            $"latitude, longitude FROM businesstable WHERE state= '" + statelist.SelectedItem.ToString() + "' AND city= '" + cityList.SelectedItem.ToString() + "' AND zipcode= '" + Zipcode_List.SelectedItem.ToString() + "';";
                         using (var reader = cmd.ExecuteReader())
                         {
                             while (reader.Read())
                             {
-                                businessGrid.Items.Add(new Business() { Name = reader.GetString(0), State = reader.GetString(1), City = reader.GetString(2), Zipcode = reader.GetString(3), Address = reader.GetString(4), Reviewcount = reader.GetInt32(5), Totalcheckins = reader.GetInt32(6), business_id = reader.GetString(7) });
+                                businessGrid.Items.Add(new Business()
+                                {
+                                    Name = reader.GetString(0),
+                                    State = reader.GetString(1),
+                                    City = reader.GetString(2),
+                                    Zipcode = reader.GetString(3),
+                                    Address = reader.GetString(4),
+                                    Reviewcount = reader.GetInt32(5),
+                                    Totalcheckins = reader.GetInt32(6),
+                                    business_id = reader.GetString(7),
+                                    Latitude = reader.GetDouble(8),
+                                    Longitude = reader.GetDouble(9)
+                                });
                             }
                         }
                         tagsListBox.Items.Clear();
@@ -291,7 +328,6 @@ namespace WpfApplication5
                             }
                         }
                         conn.Close();
-
                     }
                 }
             }
@@ -309,15 +345,18 @@ namespace WpfApplication5
 
                     if (Zipcode_List.SelectedIndex > -1)
                     {
-                        cmd.CommandText = "SELECT name, state, city, zipcode, address, reviewcount, numcheckins, business_id FROM businesstable WHERE state= '" + statelist.SelectedItem.ToString() + "' AND city= '" + cityList.SelectedItem.ToString() + "' AND zipcode= '" + Zipcode_List.SelectedItem.ToString() + "'";
+                        cmd.CommandText = $"SELECT name, state, city, zipcode, address, reviewcount, numcheckins, business_id, " +
+                            $"latitude, longitude FROM businesstable WHERE state= '" + statelist.SelectedItem.ToString() + "' AND city= '" + cityList.SelectedItem.ToString() + "' AND zipcode= '" + Zipcode_List.SelectedItem.ToString() + "'";
                     }
                     else if (cityList.SelectedIndex > -1)
                     {
-                        cmd.CommandText = "SELECT name, state, city, zipcode, address, reviewcount, numcheckins, business_id FROM businesstable WHERE state= '" + statelist.SelectedItem.ToString() + "' AND city= '" + cityList.SelectedItem.ToString() + "'";
+                        cmd.CommandText = $"SELECT name, state, city, zipcode, address, reviewcount, numcheckins, business_id, " +
+                            $"latitude, longitude FROM businesstable WHERE state= '" + statelist.SelectedItem.ToString() + "' AND city= '" + cityList.SelectedItem.ToString() + "'";
                     }
                     else
                     {
-                        cmd.CommandText = "SELECT name, state, city, zipcode, address, reviewcount, numcheckins, business_id FROM businesstable WHERE state= '" + statelist.SelectedItem.ToString() + "'";
+                        cmd.CommandText = $"SELECT name, state, city, zipcode, address, reviewcount, numcheckins, business_id, " +
+                            $"latitude, longitude FROM businesstable WHERE state= '" + statelist.SelectedItem.ToString() + "'";
                     }
                     if (tagsListBox.SelectedItems.Count != 0)
                     {
@@ -334,7 +373,19 @@ namespace WpfApplication5
                         while (reader.Read())
                         {
                             //businessGrid.Items.Add(new Business() { Name = reader.GetString(0), State = reader.GetString(1), City = reader.GetString(2), Zipcode = reader.GetString(3) });
-                            businessGrid.Items.Add(new Business() { Name = reader.GetString(0), State = reader.GetString(1), City = reader.GetString(2), Zipcode = reader.GetString(3), Address = reader.GetString(4), Reviewcount = reader.GetInt32(5), Totalcheckins = reader.GetInt32(6), business_id = reader.GetString(7) });
+                            businessGrid.Items.Add(new Business()
+                            {
+                                Name = reader.GetString(0),
+                                State = reader.GetString(1),
+                                City = reader.GetString(2),
+                                Zipcode = reader.GetString(3),
+                                Address = reader.GetString(4),
+                                Reviewcount = reader.GetInt32(5),
+                                Totalcheckins = reader.GetInt32(6),
+                                business_id = reader.GetString(7),
+                                Latitude = reader.GetDouble(8),
+                                Longitude = reader.GetDouble(9)
+                            });
                         }
                     }
                 }
@@ -351,15 +402,18 @@ namespace WpfApplication5
 
                     if (Zipcode_List.SelectedIndex > -1)
                     {
-                        cmd.CommandText = "SELECT name, state, city, zipcode, address, reviewcount, numcheckins, business_id FROM businesstable WHERE state= '" + statelist.SelectedItem.ToString() + "' AND city= '" + cityList.SelectedItem.ToString() + "' AND zipcode= '" + Zipcode_List.SelectedItem.ToString() + "'";
+                        cmd.CommandText = $"SELECT name, state, city, zipcode, address, reviewcount, numcheckins, business_id, " +
+                            $"latitude, longitude FROM businesstable state= '" + statelist.SelectedItem.ToString() + "' AND city= '" + cityList.SelectedItem.ToString() + "' AND zipcode= '" + Zipcode_List.SelectedItem.ToString() + "'";
                     }
                     else if (cityList.SelectedIndex > -1)
                     {
-                        cmd.CommandText = "SELECT name, state, city, zipcode, address, reviewcount, numcheckins, business_id FROM businesstable WHERE state= '" + statelist.SelectedItem.ToString() + "' AND city= '" + cityList.SelectedItem.ToString() + "'";
+                        cmd.CommandText = $"SELECT name, state, city, zipcode, address, reviewcount, numcheckins, business_id, " +
+                            $"latitude, longitude FROM businesstable WHERE state= '" + statelist.SelectedItem.ToString() + "' AND city= '" + cityList.SelectedItem.ToString() + "'";
                     }
                     else
                     {
-                        cmd.CommandText = "SELECT name, state, city, zipcode, address, reviewcount, numcheckins, business_id FROM businesstable WHERE state= '" + statelist.SelectedItem.ToString() + "'";
+                        cmd.CommandText = $"SELECT name, state, city, zipcode, address, reviewcount, numcheckins, business_id, " +
+                            $"latitude, longitude FROM businesstable WHERE state= '" + statelist.SelectedItem.ToString() + "'";
                     }
                     if (tagsListBox.SelectedItems.Count != 0)
                     {
@@ -434,6 +488,18 @@ namespace WpfApplication5
                 BusinessDetails detailsWindow = new BusinessDetails((Business)businessGrid.SelectedItem);
                 detailsWindow.Show();
             }
+        }
+
+        private void MapButton_Click(object sender, RoutedEventArgs e)
+        {
+            List<Business> list = new List<Business>();
+
+            foreach (Business x in businessGrid.Items)
+            {
+                list.Add(x);
+            }
+            LocalMapWindow y = new LocalMapWindow(list);
+            y.Show();
         }
     }
 }
