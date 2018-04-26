@@ -403,7 +403,7 @@ namespace WpfApplication5
                     if (Zipcode_List.SelectedIndex > -1)
                     {
                         cmd.CommandText = $"SELECT name, state, city, zipcode, address, reviewcount, numcheckins, business_id, " +
-                            $"latitude, longitude FROM businesstable state= '" + statelist.SelectedItem.ToString() + "' AND city= '" + cityList.SelectedItem.ToString() + "' AND zipcode= '" + Zipcode_List.SelectedItem.ToString() + "'";
+                            $"latitude, longitude FROM businesstable WHERE state= '" + statelist.SelectedItem.ToString() + "' AND city= '" + cityList.SelectedItem.ToString() + "' AND zipcode= '" + Zipcode_List.SelectedItem.ToString() + "'";
                     }
                     else if (cityList.SelectedIndex > -1)
                     {
