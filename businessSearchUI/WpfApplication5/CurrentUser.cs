@@ -10,6 +10,7 @@ namespace WpfApplication5
     {
         private static CurrentUser current;
         public string UserID { get; set; }
+        public string UserName { get; set; }
         private CurrentUser()
         {
 
@@ -27,6 +28,7 @@ namespace WpfApplication5
     {
         private static CurrentBusiness current;
         public string UserID { get; set; }
+        public string BusinessName { get; set; }
         private CurrentBusiness()
         {
 
