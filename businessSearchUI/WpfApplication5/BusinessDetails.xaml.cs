@@ -37,33 +37,40 @@ namespace WpfApplication5
         }
         public void InitLabels()
         {
-            if (currentBusiness.Hours.ContainsKey("Monday"))
+            if (currentBusiness.IsOpen)
             {
-                mondayHoursLabel.Content = "Monday: " + currentBusiness.Hours["Monday"].Trim(' ').Substring(0, 5) + " - " + currentBusiness.Hours["Monday"].Trim(' ').Substring(6);
+                if (currentBusiness.Hours.ContainsKey("Monday"))
+                {
+                    mondayHoursLabel.Content = "Monday: " + currentBusiness.Hours["Monday"].Trim(' ').Substring(0, 5) + " - " + currentBusiness.Hours["Monday"].Trim(' ').Substring(6);
+                }
+                if (currentBusiness.Hours.ContainsKey("Wednesday"))
+                {
+                    wednesdayHoursLabel.Content = "Wednesday: " + currentBusiness.Hours["Wednesday"].Trim(' ').Substring(0, 5) + " - " + currentBusiness.Hours["Wednesday"].Trim(' ').Substring(6);
+                }
+                if (currentBusiness.Hours.ContainsKey("Thursday"))
+                {
+                    thursdayHoursLabel.Content = "Thursday: " + currentBusiness.Hours["Thursday"].Trim(' ').Substring(0, 5) + " - " + currentBusiness.Hours["Thursday"].Trim(' ').Substring(6);
+                }
+                if (currentBusiness.Hours.ContainsKey("Friday"))
+                {
+                    fridayHoursLabel.Content = "Friday: " + currentBusiness.Hours["Friday"].Trim(' ').Substring(0, 5) + " - " + currentBusiness.Hours["Friday"].Trim(' ').Substring(6);
+                }
+                if (currentBusiness.Hours.ContainsKey("Saturday"))
+                {
+                    saturdayHoursLabel.Content = "Saturday: " + currentBusiness.Hours["Saturday"].Trim(' ').Substring(0, 5) + " - " + currentBusiness.Hours["Saturday"].Trim(' ').Substring(6);
+                }
+                if (currentBusiness.Hours.ContainsKey("Sunday"))
+                {
+                    sundayHoursLabel.Content = "Sunday: " + currentBusiness.Hours["Sunday"].Trim(' ').Substring(0, 5) + " - " + currentBusiness.Hours["Sunday"].Trim(' ').Substring(6);
+                }
+                if (currentBusiness.Hours.ContainsKey("Tuesday"))
+                {
+                    tuesdayHoursLabel.Content = "Tuesday: " + currentBusiness.Hours["Tuesday"].Trim(' ').Substring(0, 5) + " - " + currentBusiness.Hours["Tuesday"].Trim(' ').Substring(6);
+                }
             }
-            if (currentBusiness.Hours.ContainsKey("Wednesday"))
+            else
             {
-                wednesdayHoursLabel.Content = "Wednesday: " + currentBusiness.Hours["Wednesday"].Trim(' ').Substring(0, 5) + " - " + currentBusiness.Hours["Wednesday"].Trim(' ').Substring(6);
-            }
-            if (currentBusiness.Hours.ContainsKey("Thursday"))
-            {
-                thursdayHoursLabel.Content = "Thursday: " + currentBusiness.Hours["Thursday"].Trim(' ').Substring(0, 5) + " - " + currentBusiness.Hours["Thursday"].Trim(' ').Substring(6);
-            }
-            if (currentBusiness.Hours.ContainsKey("Friday"))
-            {
-                fridayHoursLabel.Content = "Friday: " + currentBusiness.Hours["Friday"].Trim(' ').Substring(0, 5) + " - " + currentBusiness.Hours["Friday"].Trim(' ').Substring(6);
-            }
-            if (currentBusiness.Hours.ContainsKey("Saturday"))
-            {
-                saturdayHoursLabel.Content = "Saturday: " + currentBusiness.Hours["Saturday"].Trim(' ').Substring(0, 5) + " - " + currentBusiness.Hours["Saturday"].Trim(' ').Substring(6);
-            }
-            if (currentBusiness.Hours.ContainsKey("Sunday"))
-            {
-                sundayHoursLabel.Content = "Sunday: " + currentBusiness.Hours["Sunday"].Trim(' ').Substring(0, 5) + " - " + currentBusiness.Hours["Sunday"].Trim(' ').Substring(6);
-            }
-            if (currentBusiness.Hours.ContainsKey("Tuesday"))
-            {
-                tuesdayHoursLabel.Content = "Tuesday: " + currentBusiness.Hours["Tuesday"].Trim(' ').Substring(0, 5) + " - " + currentBusiness.Hours["Tuesday"].Trim(' ').Substring(6);
+                closedLabel.Visibility = Visibility.Visible;
             }
             avgStarslabel.Content = "Average Stars: " + currentBusiness.Stars;
             foreach(string x in currentBusiness.Tags)

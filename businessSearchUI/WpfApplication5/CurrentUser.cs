@@ -14,7 +14,7 @@ namespace WpfApplication5
         {
 
         }
-        public CurrentUser getCurrentUser()
+        public static CurrentUser getCurrentUser()
         {
             if(current == null)
             {
@@ -31,7 +31,7 @@ namespace WpfApplication5
         {
 
         }
-        public CurrentBusiness getCurrentUser()
+        public static CurrentBusiness getCurrentUser()
         {
             if (current == null)
             {

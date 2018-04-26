@@ -67,6 +67,18 @@ namespace WpfApplication5
         public LocalSearch()
         {
             InitializeComponent();
+            if(CurrentUser.getCurrentUser() == null)
+            {
+                postTipButton.IsEnabled = false;
+                postTipButton.Visibility = Visibility.Hidden;
+                checkInButton.IsEnabled = false;
+                checkInButton.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                postTipButton.IsEnabled = true;
+                checkInButton.IsEnabled = true;
+            }
             addstates();
             addColumns2Grid();
         }
