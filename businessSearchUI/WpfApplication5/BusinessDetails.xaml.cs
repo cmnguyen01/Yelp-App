@@ -13,7 +13,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Microsoft.Maps.MapControl.WPF;
-using Npgsql;
 
 namespace WpfApplication5
 {
@@ -22,21 +21,61 @@ namespace WpfApplication5
     /// </summary>
     public partial class BusinessDetails : Window
     {
+        LocalSearch.Business currentBusiness;
         //should probably move Business class outside of LocalSearch window for easier access.
         public BusinessDetails(LocalSearch.Business business)
         {
+            currentBusiness = business;
             InitializeComponent();
-            showChart(business);
-            businessNameLabel.Content = business.Name;
-            addressLabel.Content = business.Address;
-            InitMap(business);
+            showChart();
+            businessNameLabel.Content = currentBusiness.Name;
+            addressLabel.Content = currentBusiness.Address;
+            InitMap();
             InitGrid();
-            AddTips(business);
+            AddTips();
+            InitLabels();
         }
-        public void InitMap(LocalSearch.Business business)
+        public void InitLabels()
+        {
+            if (currentBusiness.Hours.ContainsKey("Monday"))
+            {
+                mondayHoursLabel.Content = "Monday: " + currentBusiness.Hours["Monday"].Trim(' ').Substring(0, 5) + " - " + currentBusiness.Hours["Monday"].Trim(' ').Substring(6);
+            }
+            if (currentBusiness.Hours.ContainsKey("Wednesday"))
+            {
+                wednesdayHoursLabel.Content = "Wednesday: " + currentBusiness.Hours["Wednesday"].Trim(' ').Substring(0, 5) + " - " + currentBusiness.Hours["Wednesday"].Trim(' ').Substring(6);
+            }
+            if (currentBusiness.Hours.ContainsKey("Thursday"))
+            {
+                thursdayHoursLabel.Content = "Thursday: " + currentBusiness.Hours["Thursday"].Trim(' ').Substring(0, 5) + " - " + currentBusiness.Hours["Thursday"].Trim(' ').Substring(6);
+            }
+            if (currentBusiness.Hours.ContainsKey("Friday"))
+            {
+                fridayHoursLabel.Content = "Friday: " + currentBusiness.Hours["Friday"].Trim(' ').Substring(0, 5) + " - " + currentBusiness.Hours["Friday"].Trim(' ').Substring(6);
+            }
+            if (currentBusiness.Hours.ContainsKey("Saturday"))
+            {
+                saturdayHoursLabel.Content = "Saturday: " + currentBusiness.Hours["Saturday"].Trim(' ').Substring(0, 5) + " - " + currentBusiness.Hours["Saturday"].Trim(' ').Substring(6);
+            }
+            if (currentBusiness.Hours.ContainsKey("Sunday"))
+            {
+                sundayHoursLabel.Content = "Sunday: " + currentBusiness.Hours["Sunday"].Trim(' ').Substring(0, 5) + " - " + currentBusiness.Hours["Sunday"].Trim(' ').Substring(6);
+            }
+            if (currentBusiness.Hours.ContainsKey("Tuesday"))
+            {
+                tuesdayHoursLabel.Content = "Tuesday: " + currentBusiness.Hours["Tuesday"].Trim(' ').Substring(0, 5) + " - " + currentBusiness.Hours["Tuesday"].Trim(' ').Substring(6);
+            }
+            avgStarslabel.Content = "Average Stars: " + currentBusiness.Stars;
+            foreach(string x in currentBusiness.Tags)
+            {
+                tagsTextBox.AppendText(x + ", ");
+            }
+        }
+
+        public void InitMap()
         {
             Pushpin pin = new Pushpin();
-            pin.Location = new Microsoft.Maps.MapControl.WPF.Location(business.Latitude, business.Longitude);
+            pin.Location = new Microsoft.Maps.MapControl.WPF.Location(currentBusiness.Latitude, currentBusiness.Longitude);
             // Adds the pushpin to the map.
             businessMap.Children.Add(pin);
             businessMap.Center = pin.Location;
@@ -67,59 +106,17 @@ namespace WpfApplication5
             tipsGrid.Columns.Add(col3);
             tipsGrid.Columns.Add(col4);
         }
-        private void AddTips(LocalSearch.Business business)
+        private void AddTips()
         {
             tipsGrid.Items.Clear();
-            using (var conn = new NpgsqlConnection(buildConnString()))
+            foreach(LocalSearch.Tip x in currentBusiness.Tips)
             {
-                conn.Open();
-                using (var cmd = new NpgsqlCommand())
-                {                       
-                    cmd.Connection = conn;
-                    cmd.CommandText = "SELECT user_name, tip_text, date, likes FROM tips NATURAL JOIN user_info WHERE business_id= '" + business.business_id + "';";
-                    using (var reader = cmd.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            tipsGrid.Items.Add(new Tip() { Reviewer_id = reader.GetString(0), Tip_Text = reader.GetString(1), Date = reader.GetDateTime(2), Likes = reader.GetString(3) });
-                        }
-                    }
-                }
-                conn.Close();
+                tipsGrid.Items.Add(x);
             }
         }
-        private string buildConnString()
+        private void showChart()
         {
-            return "Host=localhost; Username=postgres; Password=6765; Database = Project";
-        }
-        private void showChart(LocalSearch.Business business)
-        {
-            using (var conn = new NpgsqlConnection(buildConnString()))
-            {
-                conn.Open();
-                using (var cmd = new NpgsqlCommand())
-                {
-                    cmd.Connection = conn;
-                    //Sums checkins for each day.
-                    cmd.CommandText = "SELECT (SELECT SUM(s) FROM UNNEST(sunday) s) as Sunday, (SELECT SUM(s) FROM UNNEST(monday) s) as Monday, (SELECT SUM(s) FROM UNNEST(tuesday) s) as Tuesday, (SELECT SUM(s) FROM UNNEST(wednesday) s) as Wednesday, (SELECT SUM(s) FROM UNNEST(thursday) s) as Thursday, (SELECT SUM(s) FROM UNNEST(friday) s) as Friday, (SELECT SUM(s) FROM UNNEST(saturday) s) as Saturday FROM check_ins  where business_id = '" + business.business_id.ToString() + "'";
-                    using (var reader = cmd.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            business.CheckInDetails = new Dictionary<string, int>();
-                            business.CheckInDetails.Add("Sunday", reader.GetInt32(0));
-                            business.CheckInDetails.Add("Monday", reader.GetInt32(1));
-                            business.CheckInDetails.Add("Tuesday", reader.GetInt32(2));
-                            business.CheckInDetails.Add("Wednesday", reader.GetInt32(3));
-                            business.CheckInDetails.Add("Thursday", reader.GetInt32(4));
-                            business.CheckInDetails.Add("Friday", reader.GetInt32(5));
-                            business.CheckInDetails.Add("Saturday", reader.GetInt32(6));
-                        }
-                    }
-                }
-                conn.Close();
-            }
-            checkInsChart.DataContext = business.CheckInDetails;
+            checkInsChart.DataContext = currentBusiness.CheckInDetails;
             Style HideLegendStyle = new Style(typeof(Legend));
             HideLegendStyle.Setters.Add(new Setter(WidthProperty, 0.0));
             HideLegendStyle.Setters.Add(new Setter(HeightProperty, 0.0));

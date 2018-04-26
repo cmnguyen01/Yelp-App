@@ -51,6 +51,11 @@ namespace WpfApplication5
             public double Latitude { get; set; }
             public double Longitude { get; set; }
             public Dictionary<string, int> CheckInDetails { get; set; }
+            public bool IsOpen { get; set; }
+            public Dictionary<string, string> Hours { get; set; }
+            public List<string> Tags { get; set; }
+            public double Stars { get; set; }
+            public List<Tip> Tips { get; set; }
         }
         public class Tip
         {
@@ -466,13 +471,19 @@ namespace WpfApplication5
                     using (var cmd = new NpgsqlCommand())
                     {
                         Business current = (Business)businessGrid.SelectedItem;
+                        if(current.Tips == null)
+                        {
+                            current.Tips = new List<Tip>();
+                        }
                         cmd.Connection = conn;
                         cmd.CommandText = "SELECT user_name, tip_text, date, likes FROM tips NATURAL JOIN user_info WHERE business_id= '" + current.business_id + "';";
                         using (var reader = cmd.ExecuteReader())
                         {
                             while (reader.Read())
                             {
-                                BusinessTips.Items.Add(new Tip() { Reviewer_id = reader.GetString(0), Tip_Text = reader.GetString(1), Date = reader.GetDateTime(2), Likes = reader.GetString(3) });
+                                Tip newTip = new Tip() { Reviewer_id = reader.GetString(0), Tip_Text = reader.GetString(1), Date = reader.GetDateTime(2), Likes = reader.GetString(3) };
+                                BusinessTips.Items.Add(newTip);
+                                current.Tips.Add(newTip);
                             }
                         }
                     }
@@ -483,13 +494,88 @@ namespace WpfApplication5
 
         private void busDetailsButton_Click(object sender, RoutedEventArgs e)
         {
-            if (businessGrid.SelectedIndex >= 0)
+            Business current = (Business)businessGrid.SelectedItem;
+            current.Tags = new List<string>();
+            current.Hours = new Dictionary<string, string>();
+            using (var conn = new NpgsqlConnection(buildConnString()))
             {
-                BusinessDetails detailsWindow = new BusinessDetails((Business)businessGrid.SelectedItem);
-                detailsWindow.Show();
+                conn.Open();
+                using (var cmd = new NpgsqlCommand())
+                {
+                    cmd.Connection = conn;
+                    cmd.CommandText = "SELECT hours, stars, openstatus, categories FROM businesstable WHERE business_id = '" + current.business_id + "';";
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            current.Stars = reader.GetDouble(1);
+                            current.IsOpen = reader.GetBoolean(2);
+                            foreach (string x in (string[])reader.GetValue(3))
+                            {
+                                current.Tags.Add(x);
+                            }
+                            foreach (string x in (string[])reader.GetValue(0))
+                            {
+                                if (x.StartsWith("Monday"))
+                                {
+                                    current.Hours.Add("Monday", x.Substring(8));
+                                }
+                                if (x.StartsWith("Tuesday"))
+                                {
+                                    current.Hours.Add("Tuesday", x.Substring(8));
+                                }
+                                if (x.StartsWith("Wednesday"))
+                                {
+                                    current.Hours.Add("Wednesday", x.Substring(10));
+                                }
+                                if (x.StartsWith("Thursday"))
+                                {
+                                    current.Hours.Add("Thursday", x.Substring(9));
+                                }
+                                if (x.StartsWith("Friday"))
+                                {
+                                    current.Hours.Add("Friday", x.Substring(7));
+                                }
+                                if (x.StartsWith("Saturday"))
+                                {
+                                    current.Hours.Add("Saturday", x.Substring(9));
+                                }
+                                if (x.StartsWith("Sunday"))
+                                {
+                                    current.Hours.Add("Sunday", x.Substring(7));
+                                }
+                            }
+                        }
+                    }
+                }
+                using (var cmd = new NpgsqlCommand())
+                {
+                    cmd.Connection = conn;
+                    //Sums checkins for each day.
+                    cmd.CommandText = "SELECT (SELECT SUM(s) FROM UNNEST(sunday) s) as Sunday, (SELECT SUM(s) FROM UNNEST(monday) s) as Monday, (SELECT SUM(s) FROM UNNEST(tuesday) s) as Tuesday, (SELECT SUM(s) FROM UNNEST(wednesday) s) as Wednesday, (SELECT SUM(s) FROM UNNEST(thursday) s) as Thursday, (SELECT SUM(s) FROM UNNEST(friday) s) as Friday, (SELECT SUM(s) FROM UNNEST(saturday) s) as Saturday FROM check_ins  where business_id = '" + current.business_id.ToString() + "'";
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            current.CheckInDetails = new Dictionary<string, int>();
+                            current.CheckInDetails.Add("Sunday", reader.GetInt32(0));
+                            current.CheckInDetails.Add("Monday", reader.GetInt32(1));
+                            current.CheckInDetails.Add("Tuesday", reader.GetInt32(2));
+                            current.CheckInDetails.Add("Wednesday", reader.GetInt32(3));
+                            current.CheckInDetails.Add("Thursday", reader.GetInt32(4));
+                            current.CheckInDetails.Add("Friday", reader.GetInt32(5));
+                            current.CheckInDetails.Add("Saturday", reader.GetInt32(6));
+                        }
+                    }
+                }
+                conn.Close();
+                if (businessGrid.SelectedIndex >= 0)
+                {
+                    BusinessDetails detailsWindow = new BusinessDetails(current);
+                    detailsWindow.Show();
+                }
             }
         }
-
         private void MapButton_Click(object sender, RoutedEventArgs e)
         {
             List<Business> list = new List<Business>();
