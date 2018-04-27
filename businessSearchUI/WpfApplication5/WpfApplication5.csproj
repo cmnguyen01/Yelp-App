@@ -81,6 +81,9 @@
     <Compile Include="BusinessLogin.xaml.cs">
       <DependentUpon>BusinessLogin.xaml</DependentUpon>
     </Compile>
+    <Compile Include="BussinesessPerZipWindow.xaml.cs">
+      <DependentUpon>BussinesessPerZipWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CurrentUser.cs" />
     <Compile Include="LocalMapWindow.xaml.cs">
       <DependentUpon>LocalMapWindow.xaml</DependentUpon>
@@ -105,6 +108,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="BusinessLogin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="BussinesessPerZipWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

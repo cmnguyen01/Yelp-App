@@ -68,7 +68,9 @@ namespace WpfApplication5
                     }
                     else
                     {
-                        //show
+                        //Tip is posted.
+                        conn.Close();
+                        this.Hide();
                     }
                 }
                 conn.Close();

@@ -123,7 +123,8 @@ namespace WpfApplication5
         public LocalSearch()
         {
             InitializeComponent();
-            if(CurrentUser.getCurrentUser().UserID == null || CurrentUser.getCurrentUser().UserID == "")
+            businessesPerZipButton.Visibility = Visibility.Hidden;
+            if (CurrentUser.getCurrentUser().UserID == null || CurrentUser.getCurrentUser().UserID == "")
             {
                 postTipButton.IsEnabled = false;
                 postTipButton.Visibility = Visibility.Hidden;
@@ -281,6 +282,7 @@ namespace WpfApplication5
 
         private void statesList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            businessesPerZipButton.Visibility = Visibility.Hidden;
             Zipcode_List.Items.Clear();
             businessGrid.Items.Clear();
             addcities();
@@ -290,6 +292,7 @@ namespace WpfApplication5
         }
         private void UpdateGrid()
         {
+            businessGrid.Items.Clear();
             using (var conn = new NpgsqlConnection(buildConnString()))
             {
                 conn.Open();
@@ -300,21 +303,28 @@ namespace WpfApplication5
                             $"latitude, longitude, hours, openstatus FROM businesstable WHERE";
                     StringBuilder temp = new StringBuilder();
                     temp.Append(selectBy);
+                    bool needAnd = false;
                     if (!(Zipcode_List.SelectedIndex < 0))
                     {
                         temp.Append(" zipcode = '" + Zipcode_List.SelectedItem.ToString() + "'");
+                        needAnd = true;
                     }
-                    else if (!(cityList.SelectedIndex < 0))
+                    if (!(cityList.SelectedIndex < 0))
                     {
-                        temp.Append(" city = '" + cityList.SelectedItem.ToString() + "' AND state = '" + statelist.SelectedItem.ToString() + "'");
+                        if (needAnd)
+                        {
+                            temp.Append(" AND");
+                        }
+                        temp.Append(" city = '" + cityList.SelectedItem.ToString() + "'");
+                        needAnd = true;
                     }
-                    else if (!(statelist.SelectedIndex < 0))
+                    if (!(statelist.SelectedIndex < 0))
                     {
+                        if (needAnd)
+                        {
+                            temp.Append(" AND");
+                        }
                         temp.Append(" state = '" + statelist.SelectedItem.ToString() + "'");
-                    }
-                    else
-                    {
-                        temp.Append(" true ");
                     }
                     if (tagsListBox.SelectedItems.Count != 0)
                     {
@@ -323,7 +333,7 @@ namespace WpfApplication5
                         {
                             temp.Append("'" + x + "', ");
                         }
-                        temp.Remove(0, temp.Length - 2);
+                        temp.Remove(temp.Length - 2, 2);
                         temp.Append("]::varchar[] <@ categories");
                     }
                     cmd.CommandText = temp.ToString();
@@ -360,8 +370,8 @@ namespace WpfApplication5
         {
             if (cityList.SelectedIndex > -1)
             {
+                businessesPerZipButton.Visibility = Visibility.Visible;
                 Zipcode_List.Items.Clear();
-                businessGrid.Items.Clear();
                 addZipcode();
                 UpdateGrid();
                 tagsListBox.Items.Clear();
@@ -374,7 +384,6 @@ namespace WpfApplication5
         {
             if (Zipcode_List.SelectedIndex > -1)
             {
-                businessGrid.Items.Clear();
                 UpdateGrid();
                 tagsListBox.Items.Clear();
                 RefreshTagsBox();
@@ -597,21 +606,77 @@ namespace WpfApplication5
                 PostTip x = new PostTip((Business)businessGrid.SelectedItem);
                 x.Show();
             }
+            UpdateGrid();
         }
 
-        private void checkInButton_Click(object sender, RoutedEventArgs e)
+        private void CheckInButton_Click(object sender, RoutedEventArgs e)
         {
-            using (var conn = new NpgsqlConnection(buildConnString()))
+            if (businessGrid.SelectedIndex > -1)
             {
-                conn.Open();
-                using (var cmd = new NpgsqlCommand())
+                using (var conn = new NpgsqlConnection(buildConnString()))
                 {
-                    cmd.Connection = conn;
-                    cmd.CommandText ="" ;
-                    cmd.ExecuteNonQuery();
+                    conn.Open();
+                    using (var cmd = new NpgsqlCommand())
+                    {
+                        DateTime now = DateTime.Now;
+                        int day = (int)now.DayOfWeek;
+                        double hour = now.TimeOfDay.TotalHours;
+                        int slot;
+                        if (hour < 6)
+                        {
+                            day--;
+                            slot = 4;
+                        }
+                        else if (hour < 12)
+                        {
+                            slot = 1;
+                        }
+                        else if (hour < 17)
+                        {
+                            slot = 2;
+                        }
+                        else if (hour < 23)
+                        {
+                            slot = 3;
+                        }
+                        else
+                        {
+                            slot = 4;
+                        }
+                        string weekday = ((DayOfWeek)day).ToString().ToLower();
+                        cmd.Connection = conn;
+                        cmd.CommandText = "UPDATE check_ins SET " + weekday + "[" + slot + "] = " + weekday + "[" + slot + "] + 1 WHERE business_id = '" + ((Business)businessGrid.SelectedItem).business_id + "';";
+                        cmd.ExecuteNonQuery();
+                    }
+                    conn.Close();
                 }
-                conn.Close();
             }
+            UpdateGrid();
+        }
+
+        private void BusinessesPerZipButton_Click(object sender, RoutedEventArgs e)
+        {
+            Dictionary<string, int> zipsDictionary = new Dictionary<string, int>();
+            foreach(string x in Zipcode_List.Items)
+            {
+                using (var conn = new NpgsqlConnection(buildConnString()))
+                {
+                    conn.Open();
+                    using (var cmd = new NpgsqlCommand())
+                    {
+
+                        cmd.Connection = conn;
+                        cmd.CommandText = "SELECT COUNT(business_id) FROM businesstable WHERE zipcode = '" + x + "';";
+                        var num = cmd.ExecuteReader();
+                        num.Read();
+                        zipsDictionary.Add(x, num.GetInt32(0));
+                    }
+                    conn.Close();
+                }
+            }
+            
+            BussinesessPerZipWindow y = new BussinesessPerZipWindow(zipsDictionary);
+            y.Show();
         }
     }
 }
