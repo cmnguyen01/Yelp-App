@@ -1,0 +1,34 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApplication5"
+        xmlns:chartingToolkit="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"
+    xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF" x:Class="WpfApplication5.BusinessDetails"
+        mc:Ignorable="d"
+        Title="BusinessDetails" Height="822.769" Width="1207.693">
+    <Grid>
+        <Label x:Name="businessNameLabel" Content="Business name: " HorizontalAlignment="Left" Margin="42,24,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="addressLabel" Content="Business Address&#xA;" HorizontalAlignment="Left" Margin="42,55,0,0" VerticalAlignment="Top"/>
+        <DataGrid x:Name="tipsGrid" HorizontalAlignment="Left" Height="177" Margin="24,149,0,0" VerticalAlignment="Top" Width="697"/>
+
+        <m:Map Name="businessMap" CredentialsProvider = "Ao7lKFvWXtO6Kj3BsSK0F_qCpHl1d4t9GUXgeLOAvCPwaQsYfBOBzcknkXzgSdrk" HorizontalAlignment="Right" Height="316" Margin="0,10,10,0" VerticalAlignment="Top" Width="446" />
+        <chartingToolkit:Chart x:Name="checkInsChart" HorizontalAlignment="Left" Margin="24,344,0,0" VerticalAlignment="Top" Width="1088" Height="216" Title="Check-Ins">
+            <chartingToolkit:ColumnSeries DependentValuePath="Value"  IndependentValuePath="Key" ItemsSource="{Binding}" 
+            IsSelectionEnabled="False"></chartingToolkit:ColumnSeries>
+        </chartingToolkit:Chart>
+        <Label Content="Hours:" HorizontalAlignment="Left" Margin="344,10,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="mondayHoursLabel" Content="Monday:  00:00 - 00:00" HorizontalAlignment="Left" Margin="393,10,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="tuesdayHoursLabel" Content="Tuesday: 00:00 - 00:00" HorizontalAlignment="Left" Margin="393,41,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="wednesdayHoursLabel" Content="Wednesday: 00:00 - 00:00" HorizontalAlignment="Left" Margin="393,72,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="thursdayHoursLabel" Content="Thursday: 00:00 - 00:00" HorizontalAlignment="Left" Margin="393,103,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="fridayHoursLabel" Content="Friday: 00:00 - 00:00" HorizontalAlignment="Left" Margin="556,10,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="saturdayHoursLabel" Content="Saturday: 00:00 - 00:00" HorizontalAlignment="Left" Margin="556,41,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="sundayHoursLabel" Content="Sunday: 00:00 - 00:00" HorizontalAlignment="Left" Margin="556,72,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="closedLabel" Content="This business is permanently closed." HorizontalAlignment="Left" Margin="400,49,0,0" VerticalAlignment="Top" Width="287" Height="40" FontWeight="Bold" HorizontalContentAlignment="Center" IsEnabled="False" IsHitTestVisible="False" Background="#FFF9F7F7" BorderBrush="Black" BorderThickness="1" Visibility="Hidden"/>
+        <Label x:Name="avgStarslabel" Content="Average Stars: " HorizontalAlignment="Left" Margin="42,118,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="tagsTextBox" HorizontalAlignment="Left" Height="47" Margin="24,574,0,0" TextWrapping="Wrap" Text="Tags: " VerticalAlignment="Top" Width="1088" IsEnabled="False" IsHitTestVisible="False" IsReadOnly="True" AllowDrop="False"/>
+
+    </Grid>
+</Window>

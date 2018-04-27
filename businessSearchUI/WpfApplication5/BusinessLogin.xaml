@@ -1,0 +1,17 @@
+﻿<Window x:Class="WpfApplication5.BusinessLogin"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApplication5"
+        mc:Ignorable="d"
+        Title="BusinessLogin" Height="195.333" Width="300">
+    <Grid>
+        <Label x:Name="label" Content="Password" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="27,79,0,0"/>
+        <Label x:Name="label1" Content="User Name" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="27,48,0,0"/>
+        <TextBox x:Name="UserNameText" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" Margin="102,48,0,0"/>
+        <TextBox x:Name="PasswordText" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" Margin="102,79,0,0"/>
+        <Button x:Name="logInButton" Content="Business Login" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="102,119,0,0" Click="logInButton_Click"/>
+
+    </Grid>
+</Window>
