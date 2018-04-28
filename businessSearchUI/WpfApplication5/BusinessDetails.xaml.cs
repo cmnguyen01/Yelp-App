@@ -27,7 +27,7 @@ namespace WpfApplication5
         {
             currentBusiness = business;
             InitializeComponent();
-            showChart();
+            ShowChart();
             businessNameLabel.Content = currentBusiness.Name;
             addressLabel.Content = currentBusiness.Address;
             InitMap();
@@ -121,7 +121,7 @@ namespace WpfApplication5
                 tipsGrid.Items.Add(x);
             }
         }
-        private void showChart()
+        private void ShowChart()
         {
             checkInsChart.DataContext = currentBusiness.CheckInDetails;
             Style HideLegendStyle = new Style(typeof(Legend));
