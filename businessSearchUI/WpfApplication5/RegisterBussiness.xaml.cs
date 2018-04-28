@@ -55,6 +55,7 @@ namespace WpfApplication5
         public RegisterBussiness()
         {
             InitializeComponent();
+            alreadyregisterlabel.Visibility = Visibility.Hidden;
         }
         private string Buildcomm()
         {
@@ -128,16 +129,33 @@ namespace WpfApplication5
                 using (var cmd = new NpgsqlCommand(buildConnString()))
                 {
                     cmd.Connection = conn;
-                    cmd.CommandText = "select count(business_id) from businessuser where business_id='" + businessuserList.SelectedItem.ToString() + "or  business_name='" + businessnameText.Text;
+                    cmd.CommandText = "SELECT COUNT(business_id) from businessuser WHERE business_id='" + businessuserList.SelectedItem.ToString() + "' OR  business_name='" + businessnameText.Text+"';";
+                    bool register;
                     using (var reader = cmd.ExecuteReader())
                     {
-                        
-                        if (reader.Read()==false )
+                        reader.Read();
+                        if (reader.GetInt32(0)==0 )
                         {
-                            cmd.CommandText = "insert into businessuser(business_id,business_name,password) values(business_id.text, name.text, password.text)";
-                            cmd.ExecuteNonQuery();
+                            register = true;
+                            
+                            
+                            
+                        }
+                        else
+                        {
+                            register = false;
+
                         }
 
+                    }
+                    if (register)
+                    {
+                        string password = "6765";
+                        cmd.CommandText = "insert into businessuser(business_id,business_name,password) values('" + businessuserList.SelectedItem.ToString() + "'" + ",'" + businessnameText.Text + "'" + ",'" + password + "');";
+                        cmd.ExecuteNonQuery();
+                    }else
+                    {
+                        alreadyregisterlabel.Visibility = Visibility.Visible;
                     }
                     conn.Close();
                 }

@@ -16,6 +16,7 @@
         <TextBox x:Name="businessnameText" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="179" Margin="381,55,0,0" IsReadOnly="True" IsUndoEnabled="False"/>
         <Label x:Name="label4" Content="Address" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="270,82,0,0"/>
         <TextBox x:Name="addressText" HorizontalAlignment="Left" Height="83" TextWrapping="Wrap" VerticalAlignment="Top" Width="232" Margin="328,86,0,0" IsReadOnly="False" IsUndoEnabled="False" MinLines="1"/>
+        <Label x:Name="alreadyregisterlabel" Content="UserId already register" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="27,208,0,0"/>
 
     </Grid>
 </Window>
