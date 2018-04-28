@@ -23,12 +23,5 @@ namespace WpfApplication5
         {
             InitializeComponent();
         }
-
-        private void logInButton_Click(object sender, RoutedEventArgs e)
-        {
-            BusinessProfile press = new BusinessProfile();
-            press.Show();
-            this.Hide();
-        }
     }
 }

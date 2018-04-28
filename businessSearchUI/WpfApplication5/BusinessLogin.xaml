@@ -5,13 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApplication5"
         mc:Ignorable="d"
-        Title="BusinessLogin" Height="195.333" Width="300">
+        Title="BusinessLogin" Height="300" Width="300">
     <Grid>
-        <Label x:Name="label" Content="Password" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="27,79,0,0"/>
-        <Label x:Name="label1" Content="User Name" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="27,48,0,0"/>
-        <TextBox x:Name="UserNameText" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" Margin="102,48,0,0"/>
-        <TextBox x:Name="PasswordText" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" Margin="102,79,0,0"/>
-        <Button x:Name="logInButton" Content="Business Login" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="102,119,0,0" Click="logInButton_Click"/>
+        <Label x:Name="label" Content="UserName" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="28,60,0,0"/>
+        <TextBox x:Name="UserName" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="110,60,0,0"/>
+        <Label x:Name="label1" Content="Password" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="28,91,0,0"/>
+        <TextBox x:Name="Passwordtext" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="110,91,0,0"/>
+        <Button x:Name="button" Content="Log in" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="110,119,0,0"/>
 
     </Grid>
 </Window>
