@@ -5,18 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApplication5"
         mc:Ignorable="d"
-        Title="RegisterBussiness" Height="550.855" Width="578.289">
+        Title="RegisterBussiness" Height="295.855" Width="578.289">
     <Grid>
-        <Label x:Name="label" Content="Search Business User" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0"/>
+        <Label x:Name="label" Content="Search Business:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0"/>
         <TextBox x:Name="businessnamechange" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="11,41,0,0" TextChanged="businessnamechange_TextChanged"/>
         <ListBox x:Name="businessuserList" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="167" Margin="11,69,0,0" SelectionChanged="businessuserList_SelectionChanged"/>
-        <Button x:Name="Log_in" Content="Log in" HorizontalAlignment="Left" Margin="200,149,0,0" VerticalAlignment="Top" Width="74" Click="Log_in_Click"/>
-        <Label x:Name="label1" Content="Business User information" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="270,10,0,0"/>
+        <Button x:Name="Log_in" Content="Register Business" HorizontalAlignment="Left" Margin="183,149,0,0" VerticalAlignment="Top" Width="99" Click="Log_in_Click"/>
+        <Label x:Name="label1" Content="Business User information:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="270,10,0,0"/>
         <Label x:Name="label2" Content="Business Name:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="270,51,0,0"/>
         <TextBox x:Name="businessnameText" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="179" Margin="381,55,0,0" IsReadOnly="True" IsUndoEnabled="False"/>
-        <Label x:Name="label4" Content="Address" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="270,82,0,0"/>
+        <Label x:Name="label4" Content="Address:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="270,82,0,0"/>
         <TextBox x:Name="addressText" HorizontalAlignment="Left" Height="83" TextWrapping="Wrap" VerticalAlignment="Top" Width="232" Margin="328,86,0,0" IsReadOnly="False" IsUndoEnabled="False" MinLines="1"/>
-        <Label x:Name="alreadyregisterlabel" Content="UserId already register" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="27,208,0,0"/>
+        <Label x:Name="alreadyregisterlabel" Content=" User Id is already exist. please sign in!" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="27,208,0,0"/>
 
     </Grid>
 </Window>

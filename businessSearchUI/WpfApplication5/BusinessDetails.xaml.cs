@@ -35,6 +35,7 @@ namespace WpfApplication5
             AddTips();
             InitLabels();
         }
+      
         public void InitLabels()
         {
             if (currentBusiness.IsOpen)
