@@ -27,8 +27,10 @@ namespace WpfApplication5
         string date;
         public PostTip(LocalSearch.Business arg)
         {
+            //fetch currently logged in user from singleton
             userName = CurrentUser.getCurrentUser().UserName;
             userID = CurrentUser.getCurrentUser().UserID;
+            //business is passed in from calling window.
             businessID = arg.business_id;
             businessName = arg.Name;
             InitializeComponent();
@@ -39,20 +41,23 @@ namespace WpfApplication5
             FormatDate();
             dateLabel.Content = "Date: " + date;
         }
+        //Convert date to fit with format used by DB.
         private void FormatDate()
         {
             string[] split = date.Split('/');
-            date = split[2] + "-" + split[0] + "-" + split[1];
+            date = split[2].Substring(0,4) + "-" + split[0] + "-" + split[1];
         }
         private string buildConnString()
         {
             return "Host=localhost; Username=postgres; Password=6765; Database = Project";
         }
+        //discard changes and cancel.
         private void cancelButton_Click(object sender, RoutedEventArgs e)
         {
             this.Hide();
         }
 
+        //Post tip when completed.
         private void submitButton_Click(object sender, RoutedEventArgs e)
         {
             using (var conn = new NpgsqlConnection(buildConnString()))
@@ -61,10 +66,10 @@ namespace WpfApplication5
                 using (var cmd = new NpgsqlCommand())
                 {
                     cmd.Connection = conn;
-                    cmd.CommandText = "INSERT INTO tips (user_id, business_id, tip_text, date) VALUES (" + userID + ", " + businessID + ", " + tipText.Text + "," + date + ");" ;
+                    cmd.CommandText = "INSERT INTO tips (user_id, business_id, tip_text, date) VALUES ('" + userID + "', '" + businessID + "', '" + tipText.Text + "','" + date + "');" ;
                     if (cmd.ExecuteNonQuery() == 0)
                     {
-                        //failure
+                        //failure, shouldn't happen
                     }
                     else
                     {

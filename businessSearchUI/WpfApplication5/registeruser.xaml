@@ -7,22 +7,24 @@
         mc:Ignorable="d"
         Title="Register User" Height="694" Width="1150.667">
     <Grid>
+        <Button x:Name="addFriend" Content="Add Friend" HorizontalAlignment="Left" VerticalAlignment="Top" Width="99" Margin="225,144,0,0" Click="addFriend_Click"/>
+
         <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="10,25,0,0" TextChanged="NameTextChanged"/>
         <ListBox x:Name="user_id_list" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="210" Margin="10,66,0,0" SelectionChanged="User_id_selected"/>
-        <Button x:Name="registerbutton" Content="Register Selected User" HorizontalAlignment="Left" VerticalAlignment="Top" Width="135" Margin="225,144,0,0" Click="Registereduser" Height="22"/>
+        <Button x:Name="registerbutton" Content="Register Selected User" HorizontalAlignment="Left" VerticalAlignment="Top" Width="136" Margin="225,142,0,0" Click="registerbutton_Click" Height="22"/>
         <TextBox x:Name="nameBox" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="74" Margin="804,60,0,0" IsEnabled="False"/>
         <TextBox x:Name="starsBox" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="74" Margin="804,88,0,0" IsEnabled="False"/>
         <TextBox x:Name="fansBox" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="74" Margin="804,116,0,0" IsEnabled="False"/>
         <TextBox x:Name="yelpingBox" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="74" Margin="804,144,0,0" IsEnabled="False"/>
         <Label x:Name="label" Content="Search: " HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0"/>
-        <DataGrid x:Name="Friendslist" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,214,0,0" Height="290" Width="569" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" Focusable="False" IsReadOnly="True"/>
-        <DataGrid x:Name="tips" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="688,214,0,0" Height="290" Width="441" IsEnabled="False"/>
+        <DataGrid x:Name="Friendslist" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,214,0,0" Height="290" Width="569" Focusable="False" IsReadOnly="True" SelectionChanged="Friendslist_SelectionChanged"/>
+        <DataGrid x:Name="tips" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="688,214,0,0" Height="290" Width="441" IsReadOnly="True"/>
         <Label x:Name="label1" Content="Name:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="733,57,0,0"/>
         <Label x:Name="label1_Copy" Content="Stars:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="733,88,0,0"/>
         <Label x:Name="label1_Copy1" Content="Fans:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="733,116,0,0"/>
         <Label x:Name="label1_Copy2" Content="Yelping:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="733,144,0,0"/>
         <Label x:Name="label3" Content="Friends" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,183,0,0"/>
-        <Label x:Name="label4" Content="Tips from Friends" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="688,183,0,0"/>
+        <Label x:Name="tipsGridLabel" Content="Tips from Friends" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="688,183,0,0"/>
         <Label x:Name="label5" Content="Votes" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="892,56,0,0" Height="23" Width="38"/>
         <Label x:Name="label5_Copy" Content="Funny" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="892,84,0,0" Height="27" Width="51"/>
         <Label x:Name="label5_Copy1" Content="Cool" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="892,117,0,0" Height="25" Width="51"/>
@@ -31,6 +33,12 @@
         <TextBox x:Name="coolBox" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="46" Margin="943,121,0,0" RenderTransformOrigin="0.533,1.87" IsEnabled="False"/>
         <TextBox x:Name="usefulBox" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="46" Margin="943,151,0,0" RenderTransformOrigin="0.533,1.87" IsEnabled="False"/>
         <Label Content="User Information" HorizontalAlignment="Left" Margin="733,22,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="removefriend_button" Content="Remove Friend" HorizontalAlignment="Left" VerticalAlignment="Top" Width="84" Margin="584,484,0,0" Click="removefriend_button_Click"/>
+        <TextBox x:Name="newusername_textbox" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="225,66,0,0"/>
+        <TextBox x:Name="newpassword_textbox" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="225,109,0,0"/>
+        <TextBlock x:Name="newusername_textblock" HorizontalAlignment="Left" TextWrapping="Wrap" Text="New username" VerticalAlignment="Top" Margin="225,50,0,0"/>
+        <TextBlock x:Name="newpassword_textblock" HorizontalAlignment="Left" TextWrapping="Wrap" Text="New password" VerticalAlignment="Top" Margin="225,93,0,0"/>
+        <Label x:Name="registrationError_label" Content="User or username already exists!" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="373,65,0,0" Height="27" Width="185"/>
 
     </Grid>
 </Window>

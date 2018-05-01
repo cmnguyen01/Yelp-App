@@ -19,9 +19,9 @@
         <Label x:Name="label1_Copy1" Content="Tags" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,357,0,0"/>
         <Label x:Name="label2" Content="Results:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="276,76,0,0"/>
         <DataGrid x:Name="BusinessTips" HorizontalAlignment="Left" Height="124" Margin="10,476,0,0" VerticalAlignment="Top" Width="851"/>
-        <Button x:Name="busDetailsButton" Content="View Details" HorizontalAlignment="Left" Margin="790,438,0,0" VerticalAlignment="Top" Width="75" Click="busDetailsButton_Click"/>
+        <Button x:Name="busDetailsButton" Content="View Details" HorizontalAlignment="Left" Margin="790,438,0,0" VerticalAlignment="Top" Width="75" Click="BusDetailsButton_Click"/>
         <Button x:Name="mapButton" Content="View on map" HorizontalAlignment="Left" Margin="790,413,0,0" VerticalAlignment="Top" Width="74" Click="MapButton_Click"/>
-        <Button x:Name="postTipButton" Content="Post Tip" HorizontalAlignment="Left" Margin="785,605,0,0" VerticalAlignment="Top" Width="76" Click="postTipButton_Click"/>
+        <Button x:Name="postTipButton" Content="Post Tip" HorizontalAlignment="Left" Margin="785,605,0,0" VerticalAlignment="Top" Width="76" Click="PostTipButton_Click"/>
         <Button x:Name="checkInButton" Content="Check In" HorizontalAlignment="Left" Margin="674,605,0,0" VerticalAlignment="Top" Width="75" Click="CheckInButton_Click"/>
         <Label Content="Day of Week:" HorizontalAlignment="Left" Margin="246,40,0,0" VerticalAlignment="Top"/>
         <ComboBox x:Name="weekdayComboBox" HorizontalAlignment="Left" Margin="342,44,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="WeekdayComboBox_SelectionChanged"/>
@@ -32,6 +32,7 @@
         <Button x:Name="businessesPerZipButton"  HorizontalAlignment="Left" Margin="181,137,0,0" VerticalAlignment="Top" Width="90" Height="39" Click="BusinessesPerZipButton_Click">
             <TextBlock TextWrapping="Wrap">Businesses Per Zipcode Chart</TextBlock>
         </Button>
+        <Button x:Name="clearHoursButton" Content="Clear Hours Filter" HorizontalAlignment="Left" Margin="726,76,0,0" VerticalAlignment="Top" Width="113" Click="ClearHoursButton_Click"/>
 
     </Grid>
 </Window>

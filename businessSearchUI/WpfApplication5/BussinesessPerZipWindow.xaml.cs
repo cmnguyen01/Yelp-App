@@ -22,7 +22,6 @@ namespace WpfApplication5
     {
         public BussinesessPerZipWindow(Dictionary<string, int> arg)
         {
-
             InitializeComponent();
             zipsChart.DataContext = arg;
             Style HideLegendStyle = new Style(typeof(Legend));
@@ -30,7 +29,6 @@ namespace WpfApplication5
             HideLegendStyle.Setters.Add(new Setter(HeightProperty, 0.0));
             HideLegendStyle.Setters.Add(new Setter(VisibilityProperty, Visibility.Collapsed));
             zipsChart.LegendStyle = HideLegendStyle;
-
         }
     }
 }

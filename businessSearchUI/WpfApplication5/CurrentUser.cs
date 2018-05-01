@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace WpfApplication5
 {
+    //Singleton classes keep track of currently logged in user and business.
     class CurrentUser
     {
         private static CurrentUser current;

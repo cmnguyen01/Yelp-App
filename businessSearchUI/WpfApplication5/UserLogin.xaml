@@ -7,6 +7,12 @@
         mc:Ignorable="d"
         Title="UserLogin" Height="300" Width="300">
     <Grid>
-        
+        <TextBox x:Name ="usernameInput" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="47,74,0,0"/>
+        <TextBox x:Name ="passwordInput" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" Margin="47,118,0,0"/>
+        <Button x:Name ="login" Content="Login" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="172,121,0,0" Click="login_Click_1"/>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Username" VerticalAlignment="Top" Margin="47,52,0,0" Width="120" Height="22"/>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Password" VerticalAlignment="Top" Margin="47,97,0,0"/>
+        <Label x:Name="loginError_label" Content="Invalid username or password!" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="47,190,0,0" Height="27" Width="185"/>
+
     </Grid>
 </Window>

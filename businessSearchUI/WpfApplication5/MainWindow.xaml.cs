@@ -27,7 +27,7 @@ namespace WpfApplication5
 
         private void button_Click(object sender, RoutedEventArgs e)// opens register user
         {
-            registeruser press = new registeruser();
+            registeruser press = new registeruser(false);
             press.Show();
             this.Close();
         }
