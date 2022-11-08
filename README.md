@@ -1,1 +1,2 @@
-# RepTeam3
+# yelp app
+This group project is a project for database. my group has to design a Yelp app where a user can log in, find and add business, rate business and have implemented a map to see the locations of the these business. There are several types of user, and business user each have their own login information. This project is essentailly our interpretation of a yelp app with the data that was provided to our group. 
