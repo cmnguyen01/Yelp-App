@@ -4,7 +4,7 @@ This group project is a project for database written with C# and use winforms fo
 
 ## Features:
 
-2 types of user, user and business user.
+2 types of user, User and Business user.
 
 user and business user can search for business.
 
